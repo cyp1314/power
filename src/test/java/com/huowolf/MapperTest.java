@@ -1,8 +1,11 @@
 package com.huowolf;
 
 import com.huowolf.dto.EmployeeTable;
+import com.huowolf.dto.UserTable;
 import com.huowolf.mapper.EmployeeMapper;
+import com.huowolf.mapper.UserMapper;
 import com.huowolf.model.Employee;
+import com.huowolf.model.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +24,9 @@ public class MapperTest {
     @Autowired
     private EmployeeMapper employeeMapper;
 
+    @Autowired
+    private UserMapper userMapper;
+
     @Test
     public void TestFindAllEmploee(){
         List<EmployeeTable> allEmploee = employeeMapper.findAllEmploee();
@@ -32,5 +38,31 @@ public class MapperTest {
     public void testEmployeeCount(){
         Integer count=employeeMapper.selectCount(new Employee());
         System.out.println(count);
+    }
+
+
+    /**
+     * 初始化一些用户数据
+     */
+    @Test
+    public void testAddUser(){
+        for (int i = 1; i <= 6; i++) {
+            for (int j = 1; j <= 4; j++) {
+                User user = new User();
+                user.setName("test-"+i+"-"+j);
+                user.setNumber("1518xx"+i+j);
+                user.setAreaId(i);
+                user.setDepartmentId(j);
+                userMapper.insertSelective(user);
+            }
+        }
+    }
+
+    @Test
+    public void testFindAllUserTable(){
+        List<UserTable> allUserTable = userMapper.findAllUserTable();
+        System.out.println(allUserTable.size());
+        System.out.println(allUserTable.get(0));
+
     }
 }

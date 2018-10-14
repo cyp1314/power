@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -63,11 +62,11 @@ public class EmployeeController {
     @PostMapping("/showEmployeeTable")
     @ResponseBody
     public TableResponse<EmployeeTable> showEmployeeTable(){
-        List<EmployeeTable> employeeList = emploryeeService.findAll();
+        List<EmployeeTable> employeeTableList = emploryeeService.findAll();
         Integer count = emploryeeService.employeeCount();
         TableResponse<EmployeeTable> employeeTableResponse = new TableResponse<>();
         employeeTableResponse.setTotal(count);
-        employeeTableResponse.setData(employeeList);
+        employeeTableResponse.setData(employeeTableList);
         return employeeTableResponse;
     }
 

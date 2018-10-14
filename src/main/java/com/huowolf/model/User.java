@@ -134,4 +134,33 @@ public class User {
     public void setAreaId(Integer areaId) {
         this.areaId = areaId;
     }
+
+    public User() {
+    }
+
+    public User(Integer id,String name, String number, String telphone, String photo, String description, Integer departmentId, Integer areaId) {
+        this.id = id;
+        this.name = name;
+        this.number = number;
+        this.telphone = telphone;
+        this.photo = photo;
+        this.description = description;
+        this.departmentId = departmentId;
+        this.areaId = areaId;
+    }
+
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", number='" + number + '\'' +
+                ", telphone='" + telphone + '\'' +
+                ", photo='" + photo + '\'' +
+                ", description='" + description + '\'' +
+                ", departmentId=" + departmentId +
+                ", areaId=" + areaId +
+                '}';
+    }
 }

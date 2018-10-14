@@ -7,9 +7,16 @@
         elem: '#user',
         height: 'full-200',
         cellMinWidth: 80, //全局定义常规单元格的最小宽度
-        url: 'json/user.json', //数据接口
+        url: '/user/showUserTable', //
+        method:'post',
         page: true, //开启分页
         toolbar: '#usertoolbar',
+        where:{
+            area_id:1,
+            deparetment_id:1,
+            employee_type:0
+                // [[${session.loginInfo.type}]]
+        },
         cols: [
             [ //表头
                 {
@@ -18,32 +25,25 @@
                     sort: true,
                     fixed: 'left'
                 }, {
-                    field: 'username',
+                    field: 'name',
                     title: '用户名'
                 }, {
-                    field: 'sex',
-                    title: '性别',
+                    field: 'number',
+                    title: '工号',
                     sort: true
                 }, {
-                    field: 'city',
-                    title: '城市'
+                    field: 'telphone',
+                    title: '电话'
                 }, {
-                    field: 'sign',
-                    title: '签名'
+                    field: 'description',
+                    title: '备注'
                 }, {
-                    field: 'experience',
-                    title: '积分',
+                    field: 'area',
+                    title: '所在区',
                     sort: true
                 }, {
-                    field: 'score',
-                    title: '评分',
-                    sort: true
-                }, {
-                    field: 'classify',
-                    title: '职业'
-                }, {
-                    field: 'wealth',
-                    title: '财富',
+                    field: 'department',
+                    title: '所在部门',
                     sort: true
                 }, {
                     fixed: 'right',
@@ -81,22 +81,5 @@
         window.location.href="/user/add"
     });
 
-    // $.ajax({
-    //     type: "get",
-    //     url: "json/tree.json",
-    //     dataType: 'json',
-    //     skin: "mytree",
-    //     success: function (d) {
-    //         layui.tree({
-    //             elem: '#tree',
-    //             nodes: d,
-    //             click: function (node, a) {
-    //                 //console.log(a);                                    
-    //             },
-    //             success: function () {
 
-    //             }
-    //         });
-    //     }
-    // })
 }();
