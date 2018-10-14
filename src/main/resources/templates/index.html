@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>汕头供电局</title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/common.css">
+</head>
+
+    <body class="layui-layout-body">
+        <div class="layui-layout layui-layout-admin">
+            <div class="layui-header">
+                <div class="layui-logo">汕头供电局</div>
+                <!-- 头部区域（可配合layui已有的水平导航） -->
+                <ul class="layui-nav layui-layout-left">
+                    <li class="layui-nav-item"><a href="">控制台</a></li>
+                    <li class="layui-nav-item"><a href="/employee/list" th:if="${session.loginInfo.name} eq 'admin'">员工管理</a></li>
+                    <li class="layui-nav-item"><a href="user/list">用户管理</a></li>
+                </ul>
+                <ul class="layui-nav layui-layout-right">
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">
+                            <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                            <span th:text="${session.loginInfo.name}"></span>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:void(0);" id="edit-password">修改密码</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item"><a href="/logout">退出</a></li>
+                </ul>
+            </div>
+
+            <div class="layui-side layui-bg-black">
+                <div class="layui-side-scroll">
+                    <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                    <ul class="layui-nav layui-nav-tree" lay-filter="test" th:each="area:${areaList}">
+                        <!-- layui-nav-itemed -->
+                        <li class="layui-nav-item ">
+                            <a class="" href="javascript:;" th:text="${area.name}">金平区</a>
+                            <dl class="layui-nav-child" th:each="department:${departmentList}">
+                                <dd><a href="javascript:;" th:text="${department.name}">财务部</a></dd>
+                            </dl>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="layui-body">
+                <!-- 内容主体区域 -->
+                <div class="welcome">
+                    <div id="showDate" class="layui-layout-right"></div>
+                    <h1>欢迎使用汕头市供电局信息管理系统</h1>
+
+                </div>
+            </div>
+
+            <!-- 底部固定区域 -->
+            <div th:replace="fragments/common::commonFooter">></div>
+        </div>
+        <script src="layui/layui.all.js"></script>
+        <script src="js/common.js"></script>
+        <script>
+            var $ = layui.$
+            $(function(){
+                setInterval("getTime();",1000); //每隔一秒运行一次
+            })
+            //取得系统当前时间
+            function getTime(){
+                var myDate = new Date();
+                var date = myDate.toLocaleDateString();
+                var hours = myDate.getHours();
+                var minutes = myDate.getMinutes();
+                var seconds = myDate.getSeconds();
+                $("#showDate").html("当前时间："+date+" "+hours+":"+minutes+":"+seconds); //将值赋给div
+            }
+        </script>
+       
+    </body>
+
+</html>

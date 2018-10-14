@@ -1,0 +1,16 @@
+#add-employee{
+    margin-left: 20px;
+    height: 42px;
+    line-height: 42px;
+}
+.layui-card-header{
+    padding-bottom: 15px;
+}
+.layui-card-header span{
+    font-size: 20px;
+    font-weight: 700;
+}
+
+
+
+

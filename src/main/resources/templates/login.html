@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>登录</title>
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+<body>
+        <div class="login-wrapper">
+
+            <div class="login-header">
+                <strong> 汕头市供电局 </strong>
+            </div>
+        
+            <div class=" login-body layui-col-md4">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        <i class="layui-icon layui-icon-engine"></i>&nbsp;&nbsp;用户登录
+                    </div>
+                    <div id="loginForm" class="layui-card-body layui-form layui-form-pane" >
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><i class="layui-icon layui-icon-username"></i></label>
+                            <div class="layui-input-block">
+                                <input name="username" type="text" lay-verify="required" placeholder="账号"
+                                        class="layui-input" value="admin">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><i class="layui-icon layui-icon-password"></i></label>
+                            <div class="layui-input-block">
+                                <input name="password" type="password" lay-verify="required" placeholder="密码"
+                                        class="layui-input" value="admin">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <button lay-filter="login-submit" class="layui-btn layui-btn-fluid" lay-submit>登 录</button>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        
+            <div class="login-footer">
+                <p>                    
+                    <span>© 2018<a href="javascript:;" target="_blank">汕头大学 版权所有</a></span>
+                    <span><a href="javascript:;" target="_blank">联系我们</a></span>
+                </p>
+            </div>
+        </div>
+
+
+    <script src="../layui/layui.all.js"></script>
+    <script src="../js/login.js"></script>
+    
+</body>
+</html>

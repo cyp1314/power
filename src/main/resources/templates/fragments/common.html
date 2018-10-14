@@ -1,0 +1,93 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div th:fragment="commonNav">
+    <div class="layui-header">
+        <a href="/"> <div class="layui-logo">汕头供电局 </div></a>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-left" >
+            <li class="layui-nav-item"><a href="">控制台</a></li>
+            <li class="layui-nav-item"><a href="/employee/list" th:if="${session.loginInfo.name} eq 'admin'">员工管理</a></li>
+            <li class="layui-nav-item"><a href="/user/list">用户管理</a></li>
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    <span th:text="${session.loginInfo.name}"></span>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:void(0);" id="edit-password">修改密码</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="/logout">退出</a></li>
+        </ul>
+    </div>
+</div>
+<div th:fragment="commonSide">
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree" lay-filter="test" th:each="area:${areaList}">
+                <!-- layui-nav-itemed -->
+                <li class="layui-nav-item ">
+                    <a class="" href="javascript:;" th:text="${area.name}">金平区</a>
+                    <dl class="layui-nav-child" th:each="department:${departmentList}">
+                        <dd><a href="javascript:;" th:text="${department.name}">财务部</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div th:fragment="commonFooter">
+    <div class="layui-footer">
+        <!-- 底部固定区域 -->
+        <span>© 2018 <a href="javascript:;" target="_blank">汕头大学 版权所有</a></span>
+    </div>
+
+
+    <!--修改密码弹窗-->
+    <div id="edit-password-form" class="model-form">
+        <form class="layui-form" action="">
+            <input th:type="hidden" name="id" th:value="${session.loginInfo.id}">
+            <div class="layui-form-item">
+                <label class="layui-form-label">姓名</label>
+                <div class="layui-input-inline">
+                    <span class="employee-name" th:text="${session.loginInfo.name}">张三</span>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">新密码</label>
+                <div class="layui-input-inline">
+                    <input type="password" id="pwd-input" name="newpassword" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">确认密码</label>
+                <div class="layui-input-inline" >
+                    <div class="layui-input-inline">
+                        <input type="password" id="repeatpwd" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item model-form-footer">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="change-pwd">立即提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

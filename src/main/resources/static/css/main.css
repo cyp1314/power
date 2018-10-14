@@ -1,0 +1,70 @@
+.layui-form.toolbar {
+    color: #333;
+}
+
+.layui-form.toolbar .layui-form-select input {
+    height: 35px;
+    line-height: 35px;
+    width: 150px;
+    overflow: hidden;
+}
+
+.layui-form.toolbar .layui-form-select {
+    display: inline-block;
+}
+
+.search-input {
+    width: 150px;
+    display: inline-block;
+    height: 36px;
+    vertical-align: middle;
+    padding: 3px 6px;
+}
+
+.layui-btn:not(.layui-btn-lg ):not(.layui-btn-sm):not(.layui-btn-xs) {
+    height: 34px;
+    line-height: 34px;
+}
+
+.model-form {
+    padding-top: 30px;
+    padding-right: 45px;
+    display: none;
+}
+
+.model-form-footer {
+    text-align: right;
+}
+
+.layui-side{
+    text-align: center;
+}
+
+.layui-side li a{
+    font-size: 16px;
+}
+
+.layui-nav-child dd a{
+    font-size: 14px;
+}
+
+.layui-header .layui-logo{
+    font-size: 20px;
+    color:#37aee9
+}
+
+.layui-card-header{
+    font-size: 18px;
+}
+
+.layui-card {
+    padding: 10px;
+}
+
+.layui-footer{
+    text-align: center;
+}
+.layui-footer a:hover {
+    color: #666;
+}
+
