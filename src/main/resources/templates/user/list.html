@@ -20,8 +20,8 @@
                 <!-- 内容主体区域 -->
                 <div style="padding: 15px;">
                     <span class="layui-breadcrumb">
-                        <a href="/">汕头</a>
-                        <a href="/demo/">金平区供电局</a>
+                        <a href="/">汕头市供电局</a>
+                        <a href="/demo/">金平区</a>
                         <a><cite>财务部</cite></a>
                     </span>
                     <div class="layui-card">
@@ -30,25 +30,23 @@
                             <script type="text/html" id="usertoolbar">
                                 <div class="layui-form toolbar">
                                     搜索：
-                                    <div class="layui-unselect layui-form-select">
-                                        <select name="modules" lay-verify="required" lay-search="">
-                                                <option value="">搜索选择</option>
-                                                <option value="1">用戶名</option>
-                                                <option value="2">工号</option>
-                                                <option value="3">手机号</option>
-                                        </select>
-                                    </div>
-                                    <input id="user-search-value" class="layui-input search-input" type="text" placeholder="输入关键字"> 
-                                    <button id="user-btn-search" class="layui-btn icon-btn"><i class="layui-icon"></i>搜索</button>
-                                    <button id="user-btn-add" class="layui-btn icon-btn"><i class="layui-icon"></i>添加
-                                    </button>
+                                    <select id="search-key" name="search_key" lay-verify="required" >
+                                            <option value="">请选择搜索字段</option>
+                                            <option value="name">用戶名</option>
+                                            <option value="number">工号</option>
+                                            <option value="telephone">手机号</option>
+                                    </select>
+                                    <input id="user-search-value" class="layui-input search-input" type="text" name="search_content" placeholder="输入关键字"> 
+                                    <button id="user-btn-search" class="layui-btn icon-btn" lay-submit lay-filter="user-search"><i class="layui-icon layui-icon-search"></i>搜索</button>
+                                    <button id="user-btn-add" class="layui-btn icon-btn" ><i class="layui-icon layui-icon-add-1"></i>添加</button>
+                                    <button id="user-btn-excel" class="layui-btn icon-btn"><i class="layui-icon layui-icon-upload-drag"></i>导入</button>
                                 </div>
                                 </script>
 
                             <script type="text/html" id="userbar">
                                 <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-                                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-                                  </script>
+                                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+                            </script>
                             <table id="user" lay-filter="user"></table>
                         </div>
                     </div>
@@ -56,14 +54,15 @@
             </div>
 
             <!--底部区域-->
-            <div th:replace="fragments/common::commonFooter">></div>
+            <div th:replace="fragments/common::commonFooter"></div>
         </div>
         <script src="../layui/layui.all.js"></script>
         <script src="../js/userinfo.js"></script>
         <script src="../js/common.js"></script>
 
         <!-- user表单弹窗 -->
-        <form id="user-form" lay-filter="user-form" class="layui-form model-form" method="post">
+        <form id="user-form" lay-filter="user-edit-form" class="layui-form model-form" action="">
+            <input type="hidden" name="id" value="">
             <div class="layui-form-item">
                 <label class="layui-form-label">工号</label>
                 <div class="layui-input-block">
@@ -88,7 +87,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">所在区域</label>
                 <div class="layui-input-block" >
-                    <select id="area" name="area" >
+                    <select  name="areaId" >
                         <option value=""></option>
                         <option th:each="area:${areaList}" th:value="${area.id}" th:text="${area.name}"></option>
                     </select>
@@ -97,7 +96,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">所在部门</label>
                 <div class="layui-input-block" >
-                    <select id="department" name="department">
+                    <select name="departmentId">
                         <option value=""></option>
                         <option th:each="department:${departmentList}" th:value="${department.id}" th:text="${department.name}"></option>
                     </select>

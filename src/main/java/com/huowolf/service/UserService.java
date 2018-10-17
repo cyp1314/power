@@ -39,7 +39,6 @@ public class UserService {
             userTableList = userMapper.findUserTableByAreaIdAndDepartmentId(areaId,departmentId);
         }
 
-        System.out.println(userTableList.get(0));
         return userTableList;
     }
 
@@ -64,5 +63,24 @@ public class UserService {
         user.setDepartmentId(departmentId);
         int count = userMapper.selectCount(user);
         return count;
+    }
+
+
+    /**
+     * 修改用户
+     * @param user
+     * @return
+     */
+    public Boolean editUser(User user){
+        int i = userMapper.updateByPrimaryKeySelective(user);
+        if (i!=0){
+            return Boolean.TRUE;
+        }else{
+            return Boolean.FALSE;
+        }
+    }
+
+    public void deleteUser(Integer id){
+        userMapper.deleteByPrimaryKey(id);
     }
 }

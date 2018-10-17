@@ -5,6 +5,7 @@
     var table = layui.table;
 
     table.render({
+        id: "user-id",
         elem: '#user',
         height: 'full-200',
         cellMinWidth: 80, //全局定义常规单元格的最小宽度
@@ -43,24 +44,57 @@
                     title: '所在区',
                     sort: true
                 }, {
-                field: 'department',
-                title: '所在部门',
-                sort: true
-                }
-                // }, {
-                //     field: "departmentId",
-                //     title: "部门ID",
-                //     hiden: true
-                // }, {
-                ,{
+                    field: 'department',
+                    title: '所在部门',
+                    sort: true
+                }, {
+                    field: "departmentId",
+                    hide: true
+                }, {
+                    field: "areaId",
+                    hide: true
+                }, {
                     fixed: 'right',
                     title: '操作',
                     toolbar: '#userbar',
                     width: 130
                 },
             ]
-        ]
+        ],
+        initSort: {
+            field: 'id' //排序字段，对应 cols 设定的各字段名
+            ,type: 'asc' //排序方式  asc: 升序、desc: 降序、null: 默认排序
+        }
     });
+
+
+    form.on('submit(user-form-submit)', function(data){
+        $.ajax({
+            type:'post',
+            url: '/user/editUser',
+            data: data.field,
+            success:function(data){
+                if  (data.code == 200) {
+                    layer.msg('修改成功!',{icon:1,time: 2000});
+                    layer.closeAll('page');
+
+                    //重载表格
+                    table.reload('user-id', {
+                        url: '/user/showUserTable',
+                    });
+
+                }else{
+                    layer.msg(data.msg,{icon:2,time: 2000});
+                }
+
+            },
+
+        });
+
+        return false; //阻止表单跳转。
+    });
+
+
 
     //监听行工具事件
     table.on('tool(user)', function (obj) {
@@ -74,6 +108,16 @@
                 obj.del();
                 layer.close(index);
                 //向服务端发送删除指令
+
+                $.ajax({
+                    type:'post',
+                    url: '/user/deleteUser',
+                    data: {"id":data.id},
+                    success:function(data){
+                        layer.msg(data.msg,{icon:1,time: 2000})
+                    },
+
+                });
             });
         } else if (obj.event === 'edit') {
             layer.open({
@@ -82,15 +126,19 @@
                 title: '修改用户',
                 shadeClose: true, //点击遮罩关闭
                 content: $('#user-form'),
-                success:function (layero, index) {
-                    form.val("user-form",{
+                success: function (layero, index) {
+                    form.val("user-edit-form",{
+                        "id": data.id,
                         "name":data.name,
                         "number":data.number,
                         "telphone":data.telphone,
+                        "areaId": data.areaId,
+                        "departmentId": data.departmentId
                     })
-                    console.log(data.areaID)
-                }
+                },
             });
+
+
         }
     });
 
@@ -102,4 +150,15 @@
     });
 
 
+
+    form.on('submit(user-search)', function(data){
+
+        table.reload('user-id', {
+            page: {
+                curr: 1 //重新从第 1 页开始
+            }
+            ,where: data.field
+
+        });
+    });
 }();

@@ -49,6 +49,10 @@
             shadeClose: true, //点击遮罩关闭
             offset: '100px',
             content: $('#add-employee-form'),
+            success:function () {
+                //更新form渲染
+                form.render();
+            }
         });
     });
 
