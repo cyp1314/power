@@ -60,11 +60,9 @@ public class UserController {
 
     @PostMapping("showUserTable")
     @ResponseBody
-    public TableResponse<UserTable> showUserTable(Integer area_id,Integer department_id,Integer employee_type){
+    public TableResponse<UserTable> showUserTable(Integer area_id,Integer department_id,Integer employee_type,Integer page,Integer limit){
 
-        List<UserTable> userTableList = userService.findUserByAreaIdAndDepartmentIdAndEmployeeType(area_id,department_id,employee_type);
-
-        System.out.println(userTableList.get(0));
+        List<UserTable> userTableList = userService.findUserByAreaIdAndDepartmentIdAndEmployeeType(area_id,department_id,employee_type,page,limit);
 
         TableResponse<UserTable> userTableResponse = new TableResponse<>();
         int count;
@@ -74,8 +72,9 @@ public class UserController {
             count = userService.countByAreaIdAndDepartmentId(area_id,department_id);
         }
 
-        userTableResponse.setTotal(count);
+        userTableResponse.setCount(count);
         userTableResponse.setData(userTableList);
+
         return userTableResponse;
     }
 

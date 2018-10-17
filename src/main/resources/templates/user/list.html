@@ -63,40 +63,44 @@
         <script src="../js/common.js"></script>
 
         <!-- user表单弹窗 -->
-        <form id="user-form" lay-filter="user-form" class="layui-form model-form" method="GET">
-            <input name="userId" type="hidden" value="admin">
+        <form id="user-form" lay-filter="user-form" class="layui-form model-form" method="post">
             <div class="layui-form-item">
-                <label class="layui-form-label">账号</label>
+                <label class="layui-form-label">工号</label>
                 <div class="layui-input-block">
-                    <input name="username" placeholder="请输入账号" type="text" class="layui-input" maxlength="20"
+                    <input name="number" placeholder="请输入工号" type="text" class="layui-input" maxlength="20"
                         lay-verify="required" required="">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">用户名</label>
                 <div class="layui-input-block">
-                    <input name="nickName" placeholder="请输入用户名" type="text" class="layui-input" maxlength="20"
+                    <input name="name" placeholder="请输入用户名" type="text" class="layui-input" maxlength="20"
                         lay-verify="required" required="">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">手机号</label>
                 <div class="layui-input-block">
-                    <input name="phone" placeholder="请输入手机号" type="text" class="layui-input" lay-verify="required|phone"
+                    <input name="telphone" placeholder="请输入手机号" type="text" class="layui-input" lay-verify="required|phone"
                         required="">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">性别</label>
-                <div class="layui-input-block">
-                    <input type="radio" name="sex" value="男" title="男" checked="">
-                    <div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i>
-                        <div>男</div>
-                    </div>
-                    <input type="radio" name="sex" value="女" title="女">
-                    <div class="layui-unselect layui-form-radio layui-form-radioed"><i class="layui-anim layui-icon"></i>
-                        <div>女</div>
-                    </div>
+                <label class="layui-form-label">所在区域</label>
+                <div class="layui-input-block" >
+                    <select id="area" name="area" >
+                        <option value=""></option>
+                        <option th:each="area:${areaList}" th:value="${area.id}" th:text="${area.name}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">所在部门</label>
+                <div class="layui-input-block" >
+                    <select id="department" name="department">
+                        <option value=""></option>
+                        <option th:each="department:${departmentList}" th:value="${department.id}" th:text="${department.name}"></option>
+                    </select>
                 </div>
             </div>
 

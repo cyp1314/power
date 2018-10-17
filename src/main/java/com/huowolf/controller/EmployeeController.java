@@ -65,7 +65,7 @@ public class EmployeeController {
         List<EmployeeTable> employeeTableList = emploryeeService.findAll();
         Integer count = emploryeeService.employeeCount();
         TableResponse<EmployeeTable> employeeTableResponse = new TableResponse<>();
-        employeeTableResponse.setTotal(count);
+        employeeTableResponse.setCount(count);
         employeeTableResponse.setData(employeeTableList);
         return employeeTableResponse;
     }

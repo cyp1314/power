@@ -15,4 +15,7 @@ public interface UserMapper extends BaseMapper<User> {
     @Select("SELECT user.*,area.`name` AS AREA,department.`name` AS department FROM USER,AREA,department WHERE user.`area_id`=area.`id` " +
             "AND user.`department_id`=department.`id` AND user.`area_id`=#{areaId} AND user.`department_id`=#{departmentId}")
     List<UserTable> findUserTableByAreaIdAndDepartmentId(Integer areaId,Integer departmentId);
+
+//    @Select("")
+//    List<User> findAllUser();
 }

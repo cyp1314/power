@@ -85,4 +85,15 @@ public class Employee {
     public void setAreaId(Integer areaId) {
         this.areaId = areaId;
     }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", type=" + type +
+                ", areaId=" + areaId +
+                '}';
+    }
 }

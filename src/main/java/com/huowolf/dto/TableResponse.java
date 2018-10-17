@@ -8,7 +8,7 @@ import java.util.List;
 public class TableResponse<E> {
     private Integer code=0;
     private String msg="";
-    private Integer total;
+    private Integer count;
     private List<E> data;
 
     public Integer getCode() {
@@ -27,12 +27,12 @@ public class TableResponse<E> {
         this.msg = msg;
     }
 
-    public Integer getTotal() {
-        return total;
+    public Integer getCount() {
+        return count;
     }
 
-    public void setTotal(Integer total) {
-        this.total = total;
+    public void setCount(Integer count) {
+        this.count = count;
     }
 
     public List<E> getData() {

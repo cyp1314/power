@@ -10,15 +10,32 @@ public class UserTable extends User {
 
     private String department;
 
-    public UserTable() {
+    public String getArea() {
+        return area;
     }
 
-    public UserTable(Integer id, String name, String number, String telphone, String photo, String description, Integer departmentId, Integer areaId, String area, String department) {
-        super(id,name, number, telphone, photo, description, departmentId, areaId);
+    public void setArea(String area) {
         this.area = area;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
         this.department = department;
     }
 
+    public UserTable() {
+    }
+
+
+    public UserTable(Integer id, String name, String number, String telphone, String photo, String description,
+                     Integer departmentId, Integer areaId, String area, String department) {
+        super(id, name, number, telphone, photo, description, departmentId, areaId);
+        this.area = area;
+        this.department = department;
+    }
 
     @Override
     public String toString() {

@@ -18,6 +18,7 @@
         if(pwd!=repeatpwd){
             layer.msg('两次输入的密码不一致', {icon: 5})
         }
+
     });
 
 
@@ -26,6 +27,13 @@
             type:'post',
             url: '/employee/editPassword',
             data: data.field,
+            beforeSend:function () {
+                var pwd = $('#pwd-input').val();
+                var repeatpwd = $('#repeatpwd').val();
+                if(pwd!=repeatpwd){
+                    return false;
+                }
+            },
             success:function(data){
                 if  (data.code == 200) {
                     layer.msg('密码修改成功!',{icon:1,time: 2000});

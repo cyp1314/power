@@ -31,7 +31,6 @@ public class MapperTest {
     public void TestFindAllEmploee(){
         List<EmployeeTable> allEmploee = employeeMapper.findAllEmploee();
         System.out.println(allEmploee.get(0));
-        assert allEmploee.size()==1;
     }
 
     @Test
@@ -63,6 +62,19 @@ public class MapperTest {
         List<UserTable> allUserTable = userMapper.findAllUserTable();
         System.out.println(allUserTable.size());
         System.out.println(allUserTable.get(0));
+        System.out.println(allUserTable.get(1));
 
+    }
+
+    @Test
+    public void testFindEmployeeById(){
+        Employee employee = employeeMapper.selectByPrimaryKey(2);
+        System.out.println(employee);
+    }
+
+    @Test
+    public void testFindUserById(){
+        User user = userMapper.selectByPrimaryKey(25);
+        System.out.println(user);
     }
 }

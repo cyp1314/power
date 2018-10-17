@@ -1,5 +1,6 @@
 package com.huowolf.service;
 
+import com.github.pagehelper.PageHelper;
 import com.huowolf.dto.UserTable;
 import com.huowolf.mapper.UserMapper;
 import com.huowolf.model.User;
@@ -25,14 +26,20 @@ public class UserService {
      * @param employeeType
      * @return
      */
-    public List<UserTable> findUserByAreaIdAndDepartmentIdAndEmployeeType(Integer areaId,Integer departmentId,Integer employeeType){
+    public List<UserTable> findUserByAreaIdAndDepartmentIdAndEmployeeType(Integer areaId,Integer departmentId,Integer employeeType,Integer page,Integer limit){
 
         List<UserTable> userTableList = null;
+
+        //启用分页
+        PageHelper.startPage(page,limit);
+
         if(employeeType == 0){
             userTableList = userMapper.findAllUserTable();
         }else{
             userTableList = userMapper.findUserTableByAreaIdAndDepartmentId(areaId,departmentId);
         }
+
+        System.out.println(userTableList.get(0));
         return userTableList;
     }
 
