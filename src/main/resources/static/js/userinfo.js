@@ -4,6 +4,10 @@
     var form = layui.form;
     var table = layui.table;
 
+    console.log($('#area-id').text()),
+    console.log($('#department-id').text()),
+
+
     table.render({
         id: "user-id",
         elem: '#user',
@@ -14,10 +18,8 @@
         page: true, //开启分页
         toolbar: '#usertoolbar',
         where:{
-            area_id:1,
-            deparetment_id:1,
-            employee_type:0
-                // [[${session.loginInfo.type}]]
+            area_id: $('#area-id').text(),
+            department_id:$('#department-id').text(),
         },
         cols: [
             [ //表头
@@ -152,15 +154,15 @@
     });
 
 
-
+    //搜索事件
     form.on('submit(user-search)', function(data){
 
         table.reload('user-id', {
             page: {
                 curr: 1 //重新从第 1 页开始
             }
-            ,where: data.field
-
+            ,where: data.field,
+            url: '/user/search'
         });
 
         //为搜索框赋初值(数据回显)

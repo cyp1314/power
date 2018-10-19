@@ -49,6 +49,10 @@
                                 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
                             </script>
                             <table id="user" lay-filter="user"></table>
+
+                            <!--使用隐藏元素给js传值-->
+                            <span id="area-id" style="display: none;" th:text="${areaId}"></span>
+                            <span id="department-id" style="display: none;" th:text="${departmentId}"></span>
                         </div>
                     </div>
                 </div>
@@ -58,9 +62,8 @@
             <div th:replace="fragments/common::commonFooter"></div>
         </div>
         <script src="../layui/layui.all.js"></script>
-        <script src="../js/userinfo.js"></script>
         <script src="../js/common.js"></script>
-
+        <script src="" th:inline="javascript" th:src="@{../js/userinfo.js}"></script>
         <!-- user表单弹窗 -->
         <form id="user-form" lay-filter="user-edit-form" class="layui-form model-form" action="">
             <input type="hidden" name="id" value="">

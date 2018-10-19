@@ -1,7 +1,6 @@
 package com.huowolf.controller;
 
 import com.huowolf.dto.TableResponse;
-import com.huowolf.dto.UserQuery;
 import com.huowolf.dto.UserTable;
 import com.huowolf.model.Area;
 import com.huowolf.model.Department;
@@ -16,10 +15,7 @@ import com.huowolf.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -41,8 +37,9 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/list")
-    public String list(HttpSession session, Model model){
+    public String list(HttpSession session, Model model,Integer areaId,Integer departmentId){
         Employee employee = (Employee) session.getAttribute("loginInfo");
+        model.addAttribute("employee",employee);
 
         List<Area> areaList = ServiceUtil.loadAreaByEmployee(areaService,employee);
 
@@ -54,6 +51,11 @@ public class UserController {
         if(departmentList!=null){
             model.addAttribute("departmentList",departmentList);
         }
+
+        if(areaId!=null && departmentId!= null){
+            model.addAttribute("areaId",areaId);
+            model.addAttribute("departmentId",departmentId);
+        }
         return "user/list";
     }
 
@@ -62,41 +64,40 @@ public class UserController {
         return "user/add";
     }
 
+
     /**
      * 返回用户数据表格所需数据
-     * @param userQuery
+     * @param areaId
+     * @param departmentId
      * @param page
      * @param limit
      * @return
      */
     @PostMapping("showUserTable")
     @ResponseBody
-    public TableResponse<UserTable> showUserTable(UserQuery userQuery,Integer page, Integer limit){
-        Integer area_id = userQuery.getArea_id();
-        Integer department_id = userQuery.getDepartment_id();
-        Integer employee_type = userQuery.getEmployee_type();
-        String search_key = userQuery.getSearch_key();
-        String search_content = userQuery.getSearch_content();
+    public TableResponse<UserTable> showUserTable(
+            @RequestParam("area_id") Integer areaId,
+            @RequestParam("department_id") Integer departmentId,
+            Integer page,
+            Integer limit){
 
-        List<UserTable> userTableList = userService.findUserByAreaIdAndDepartmentIdAndEmployeeType(userQuery,page,limit);
+
+        List<UserTable> userTableList = userService.findUserByAreaIdAndDepartmentId(areaId,departmentId,page,limit);
 
         TableResponse<UserTable> userTableResponse = new TableResponse<>();
 
         //返回数据总数
         int count;
-        if(employee_type==0){
-            count = userService.countAll();
+        if(areaId!=null && departmentId!=null){
+            count = userService.countByAreaIdAndDepartmentId(areaId,departmentId);
+            if(count==0){
+                userTableResponse.setCode(-1);
+                userTableResponse.setMsg("没有相关数据");
+            }
         }else {
-            count = userService.countByAreaIdAndDepartmentId(area_id,department_id);
+            count = userService.countAll();
         }
 
-        if(search_key!=null && search_content!=null){
-           count = userTableList.size();
-           if(count==0){
-               userTableResponse.setCode(-1);
-               userTableResponse.setMsg("没有相关数据");
-           }
-        }
 
         userTableResponse.setCount(count);
         userTableResponse.setData(userTableList);
@@ -123,6 +124,11 @@ public class UserController {
     }
 
 
+    /**
+     * 删除用户
+     * @param id
+     * @return
+     */
     @PostMapping("deleteUser")
     @ResponseBody
     public Result deleteUser(Integer id){
@@ -132,10 +138,49 @@ public class UserController {
     }
 
 
+    /**
+     * 用户详情页
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("view")
     public String  view(Integer id, Model model){
         UserTable userTable = userService.findUserTableById(id);
         model.addAttribute("user",userTable);
         return "user/view";
+    }
+
+
+    /**
+     * 搜索用户
+     * @param searchKey
+     * @param searchContent
+     * @param areaId
+     * @param departmentId
+     */
+    @PostMapping("search")
+    @ResponseBody
+    public TableResponse<UserTable> search(
+            @RequestParam("search_key") String searchKey,
+            @RequestParam("search_content")String searchContent,
+            @RequestParam("area_id") Integer areaId,
+            @RequestParam("department_id") Integer departmentId){
+
+        List<UserTable> userTableList = userService.searchUserTable(searchKey, searchContent, areaId, departmentId);
+
+
+        TableResponse<UserTable> userTableResponse = new TableResponse<>();
+        userTableResponse.setData(userTableList);
+
+        int count = userTableList.size();
+        if(count==0){
+            userTableResponse.setCode(-1);
+            userTableResponse.setMsg("没有相关数据");
+        }
+
+        userTableResponse.setCount(count);
+
+        return userTableResponse;
     }
 }

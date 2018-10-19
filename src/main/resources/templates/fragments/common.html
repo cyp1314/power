@@ -40,7 +40,7 @@
                 <li class="layui-nav-item ">
                     <a class="" href="javascript:;" th:text="${area.name}">金平区</a>
                     <dl class="layui-nav-child" th:each="department:${departmentList}">
-                        <dd><a href="javascript:;" th:text="${department.name}">财务部</a></dd>
+                        <dd><a th:href="@{'/user/list?areaId='+${area.id}+'&departmentId='+${department.id}}" th:text="${department.name}">财务部</a></dd>
                     </dl>
                 </li>
             </ul>
