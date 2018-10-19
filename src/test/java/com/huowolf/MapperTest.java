@@ -71,4 +71,24 @@ public class MapperTest {
         System.out.println(user);
     }
 
+
+    @Test
+    public void testsearchUserTable(){
+        List<UserTable> userTableList = userMapper.searchUserTable("name", "test-2");
+        System.out.println(userTableList.size());
+        System.out.println(userTableList.get(0));
+    }
+
+    @Test
+    public void testSearchUserTableWithAreaIdAndDepartmentId(){
+        List<UserTable> userTableList = userMapper.searchUserTableWithAreaIdAndDepartmentId("name","test",4,1);
+        System.out.println(userTableList.size());
+        System.out.println(userTableList.get(0));
+    }
+
+    @Test
+    public void testFindUserTableById(){
+        UserTable userTable = userMapper.findUserTableById(30);
+        System.out.println(userTable);
+    }
 }

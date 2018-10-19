@@ -48,16 +48,10 @@
                     title: '所在部门',
                     sort: true
                 }, {
-                    field: "departmentId",
-                    hide: true
-                }, {
-                    field: "areaId",
-                    hide: true
-                }, {
                     fixed: 'right',
                     title: '操作',
                     toolbar: '#userbar',
-                    width: 130
+                    width: 190
                 },
             ]
         ],
@@ -137,8 +131,16 @@
                     })
                 },
             });
-
-
+        }else if (obj.event === 'view'){
+            layer.open({
+                type: 2,
+                title: '查看用户详情',
+                shadeClose: true,
+                shade: false,
+                maxmin: true, //开启最大化最小化按钮
+                area: ['860px', '600px'],
+                content: '/user/view?id='+data.id
+            });
         }
     });
 
@@ -160,5 +162,8 @@
             ,where: data.field
 
         });
+
+        //为搜索框赋初值(数据回显)
+        form.val('search-user',data.field);
     });
 }();

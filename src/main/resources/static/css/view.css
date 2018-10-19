@@ -1,0 +1,47 @@
+
+.layui-container{
+    width: 800px;
+    margin: 50px auto;
+}
+.layui-card{
+    padding: 0 20px;
+}
+.layui-card-header{
+    font-size: 20px;
+    color: #20222A;
+    font-weight: bold;
+    padding: 10px;
+    margin-left: 10px;
+}
+.layui-card-body{
+    padding-bottom: 30px;
+}
+.left-side{
+
+}
+.user-item{
+    margin: 10px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 16px;
+    border-bottom: 1px solid #ccc;
+}
+
+.item-header{
+    font-weight: 600;
+    padding-right: 20px;
+}
+.user-item-note{
+    margin: 10px;
+    font-size: 16px;
+}
+.user-item-note .item-header{
+    display: inline-block;
+}
+.note-content{
+    display: inline-block;
+    width: 170px;
+}
+.right-side{
+    margin-top: 20px;
+}

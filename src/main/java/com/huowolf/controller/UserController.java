@@ -64,9 +64,7 @@ public class UserController {
 
     /**
      * 返回用户数据表格所需数据
-     * @param area_id
-     * @param department_id
-     * @param employee_type
+     * @param userQuery
      * @param page
      * @param limit
      * @return
@@ -80,9 +78,11 @@ public class UserController {
         String search_key = userQuery.getSearch_key();
         String search_content = userQuery.getSearch_content();
 
-        List<UserTable> userTableList = userService.findUserByAreaIdAndDepartmentIdAndEmployeeType(area_id,department_id,employee_type,page,limit);
+        List<UserTable> userTableList = userService.findUserByAreaIdAndDepartmentIdAndEmployeeType(userQuery,page,limit);
 
         TableResponse<UserTable> userTableResponse = new TableResponse<>();
+
+        //返回数据总数
         int count;
         if(employee_type==0){
             count = userService.countAll();
@@ -91,8 +91,11 @@ public class UserController {
         }
 
         if(search_key!=null && search_content!=null){
-            System.out.println(search_key);
-            System.out.println(search_content);
+           count = userTableList.size();
+           if(count==0){
+               userTableResponse.setCode(-1);
+               userTableResponse.setMsg("没有相关数据");
+           }
         }
 
         userTableResponse.setCount(count);
@@ -102,6 +105,11 @@ public class UserController {
     }
 
 
+    /**
+     * 修改用户
+     * @param user
+     * @return
+     */
     @PostMapping("editUser")
     @ResponseBody
     public Result editUser(User user){
@@ -121,5 +129,13 @@ public class UserController {
         System.out.println("id:"+id);
         userService.deleteUser(id);
         return ResultUtil.success("删除成功",null);
+    }
+
+
+    @GetMapping("view")
+    public String  view(Integer id, Model model){
+        UserTable userTable = userService.findUserTableById(id);
+        model.addAttribute("user",userTable);
+        return "user/view";
     }
 }

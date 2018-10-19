@@ -28,13 +28,13 @@
                         <div class="layui-card-header">用户信息</div>
                         <div class="layui-card-body">
                             <script type="text/html" id="usertoolbar">
-                                <div class="layui-form toolbar">
+                                <div class="layui-form toolbar" lay-filter="search-user">
                                     搜索：
                                     <select id="search-key" name="search_key" lay-verify="required" >
                                             <option value="">请选择搜索字段</option>
                                             <option value="name">用戶名</option>
                                             <option value="number">工号</option>
-                                            <option value="telephone">手机号</option>
+                                            <option value="telphone">手机号</option>
                                     </select>
                                     <input id="user-search-value" class="layui-input search-input" type="text" name="search_content" placeholder="输入关键字"> 
                                     <button id="user-btn-search" class="layui-btn icon-btn" lay-submit lay-filter="user-search"><i class="layui-icon layui-icon-search"></i>搜索</button>
@@ -44,6 +44,7 @@
                                 </script>
 
                             <script type="text/html" id="userbar">
+                                <a class="layui-btn layui-btn-xs" lay-event="view">查看详情</a>
                                 <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
                                 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
                             </script>
