@@ -4,9 +4,6 @@
     var form = layui.form;
     var table = layui.table;
 
-    console.log($('#area-id').text()),
-    console.log($('#department-id').text()),
-
 
     table.render({
         id: "user-id",
@@ -64,6 +61,7 @@
     });
 
 
+    //修改用户
     form.on('submit(user-form-submit)', function(data){
         $.ajax({
             type:'post',
@@ -147,10 +145,13 @@
     });
 
 
-
-    //头工具栏事件
-    $("#user-btn-add").click(function(){
-        window.location.href="/user/add"
+    //监听头工具栏事件
+    table.on('toolbar(user)', function(obj){
+        switch(obj.event){
+            case 'add':
+                window.location.href="/user/add";
+                break;
+        };
     });
 
 

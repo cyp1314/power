@@ -1,4 +1,14 @@
-.layui-textarea{
-    width: 50%;
-    height: 130px;
+#photo{
+    padding: 20px;
+}
+#description{
+    width: 440px;
+    min-height: 130px;
+}
+img{
+    display: block;
+    width: 400px;
+}
+.layui-input-inline{
+    width: 250px!important;
 }

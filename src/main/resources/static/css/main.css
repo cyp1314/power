@@ -61,6 +61,11 @@
     padding: 10px;
 }
 
+.breadmenu{
+    padding-left: 25px;
+    font-size: 14px;
+}
+
 .layui-footer{
     text-align: center;
 }

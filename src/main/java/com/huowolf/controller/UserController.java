@@ -13,12 +13,19 @@ import com.huowolf.service.UserService;
 import com.huowolf.util.Result;
 import com.huowolf.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by huowolf on 2018/10/12.
@@ -36,10 +43,15 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Value("${com.huowolf.common.upload}")
+    private String upload;
+
     @GetMapping("/list")
-    public String list(HttpSession session, Model model,Integer areaId,Integer departmentId){
+    public String list(HttpSession session,
+                       Model model,
+                       @RequestParam(value = "area_id",required = false) Integer areaId,
+                       @RequestParam(value = "department_id",required = false) Integer departmentId){
         Employee employee = (Employee) session.getAttribute("loginInfo");
-        model.addAttribute("employee",employee);
 
         List<Area> areaList = ServiceUtil.loadAreaByEmployee(areaService,employee);
 
@@ -53,14 +65,31 @@ public class UserController {
         }
 
         if(areaId!=null && departmentId!= null){
-            model.addAttribute("areaId",areaId);
-            model.addAttribute("departmentId",departmentId);
+
+            Area area = areaService.findAreaById(areaId);
+            model.addAttribute("indexArea",area);
+
+            Department department = departmentService.findDepartmentById(departmentId);
+            model.addAttribute("indexDepartment",department);
         }
         return "user/list";
     }
 
+
     @GetMapping("/add")
-    public String add(){
+    public String add(HttpSession session, Model model){
+        Employee employee = (Employee) session.getAttribute("loginInfo");
+
+        List<Area> areaList = ServiceUtil.loadAreaByEmployee(areaService,employee);
+
+        if(areaList!=null){
+            model.addAttribute("areaList",areaList);
+        }
+
+        List<Department> departmentList = departmentService.findAllDepartment();
+        if(departmentList!=null){
+            model.addAttribute("departmentList",departmentList);
+        }
         return "user/add";
     }
 
@@ -182,5 +211,20 @@ public class UserController {
         userTableResponse.setCount(count);
 
         return userTableResponse;
+    }
+
+
+    @PostMapping("/upload")
+    @ResponseBody
+    public void upload(MultipartFile file, HttpServletRequest request) throws IOException {
+
+        String originalFilename = file.getOriginalFilename();	//原始名称
+
+        //新的图片名称
+        String newFileName = UUID.randomUUID() + originalFilename.substring(originalFilename.lastIndexOf("."));
+        File newFile = new File(upload+newFileName);
+
+        //将内存中的数据写入磁盘
+        file.transferTo(newFile);
     }
 }

@@ -23,4 +23,8 @@ public class DepartmentService {
     public List<Department> findAllDepartment(){
         return  departmentMapper.selectAll();
     }
+
+    public Department findDepartmentById(Integer id){
+        return departmentMapper.selectByPrimaryKey(id);
+    }
 }

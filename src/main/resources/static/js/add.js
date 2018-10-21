@@ -5,7 +5,8 @@
     upload = layui.upload;
     upload.render({
         elem: '#photo',
-        // url: '',
+        url: '/user/upload',
+        acceptMime: 'image/*',
         before: function (obj) {
             //预读本地文件示例，不支持ie8
             obj.preview(function (index, file, result) {

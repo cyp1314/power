@@ -38,12 +38,12 @@
             <div class="layui-side layui-bg-black">
                 <div class="layui-side-scroll">
                     <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-                    <ul class="layui-nav layui-nav-tree" lay-filter="test" th:each="area:${areaList}">
+                    <ul class="layui-nav layui-nav-tree" lay-filter="menu" th:each="area:${areaList}">
                         <!-- layui-nav-itemed -->
                         <li class="layui-nav-item ">
                             <a class="" href="javascript:;" th:text="${area.name}">金平区</a>
                             <dl class="layui-nav-child" th:each="department:${departmentList}">
-                                <dd><a th:href="@{'/user/list?areaId='+${area.id}+'&departmentId='+${department.id}}" th:text="${department.name}">财务部</a></dd>
+                                <dd><a href="#" th:text="${department.name}" th:attr="data-areaId=${area.id},data-departmentId=${department.id}">财务部</a></dd>
                             </dl>
                         </li>
                     </ul>

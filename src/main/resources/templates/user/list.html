@@ -19,11 +19,14 @@
             <div class="layui-body">
                 <!-- 内容主体区域 -->
                 <div style="padding: 15px;">
-                    <span class="layui-breadcrumb">
-                        <a href="/">汕头市供电局</a>
-                        <a href="/demo/">金平区</a>
-                        <a><cite>财务部</cite></a>
-                    </span>
+                    <div class="breadmenu">
+                        <span class="layui-breadcrumb">
+                            <a href="javascript:;">汕头市供电局</a>
+                            <a id="area-name" href="javascript:;" th:text="${indexArea?.name}">金平区</a>
+                            <a id="department-name" href="javascript:;" th:text="${indexDepartment?.name}"><cute>财务部</cute></a>
+                        </span>
+                    </div>
+
                     <div class="layui-card">
                         <div class="layui-card-header">用户信息</div>
                         <div class="layui-card-body">
@@ -38,10 +41,10 @@
                                     </select>
                                     <input id="user-search-value" class="layui-input search-input" type="text" name="search_content" placeholder="输入关键字"> 
                                     <button id="user-btn-search" class="layui-btn icon-btn" lay-submit lay-filter="user-search"><i class="layui-icon layui-icon-search"></i>搜索</button>
-                                    <button id="user-btn-add" class="layui-btn icon-btn" ><i class="layui-icon layui-icon-add-1"></i>添加</button>
+                                    <button id="user-btn-add" class="layui-btn icon-btn" lay-event="add"><i class="layui-icon layui-icon-add-1" ></i>添加</button>
                                     <button id="user-btn-excel" class="layui-btn icon-btn"><i class="layui-icon layui-icon-upload-drag"></i>导入</button>
                                 </div>
-                                </script>
+                            </script>
 
                             <script type="text/html" id="userbar">
                                 <a class="layui-btn layui-btn-xs" lay-event="view">查看详情</a>
@@ -51,8 +54,8 @@
                             <table id="user" lay-filter="user"></table>
 
                             <!--使用隐藏元素给js传值-->
-                            <span id="area-id" style="display: none;" th:text="${areaId}"></span>
-                            <span id="department-id" style="display: none;" th:text="${departmentId}"></span>
+                            <span id="area-id" style="display: none;" th:text="${indexArea?.id}"></span>
+                            <span id="department-id" style="display: none;" th:text="${indexDepartment?.id}"></span>
                         </div>
                     </div>
                 </div>
@@ -63,7 +66,7 @@
         </div>
         <script src="../layui/layui.all.js"></script>
         <script src="../js/common.js"></script>
-        <script src="" th:inline="javascript" th:src="@{../js/userinfo.js}"></script>
+        <script src="../js/userinfo.js"></script>
         <!-- user表单弹窗 -->
         <form id="user-form" lay-filter="user-edit-form" class="layui-form model-form" action="">
             <input type="hidden" name="id" value="">
