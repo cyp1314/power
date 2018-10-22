@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -43,7 +44,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Value("${com.huowolf.common.upload}")
+    //文件上传路径
+    @Value("${spring.http.multipart.location}")
     private String upload;
 
     @GetMapping("/list")
@@ -76,7 +78,7 @@ public class UserController {
     }
 
 
-    @GetMapping("/add")
+    @GetMapping("/toAdd")
     public String add(HttpSession session, Model model){
         Employee employee = (Employee) session.getAttribute("loginInfo");
 
@@ -161,7 +163,6 @@ public class UserController {
     @PostMapping("deleteUser")
     @ResponseBody
     public Result deleteUser(Integer id){
-        System.out.println("id:"+id);
         userService.deleteUser(id);
         return ResultUtil.success("删除成功",null);
     }
@@ -214,9 +215,20 @@ public class UserController {
     }
 
 
+    /**
+     * 上传用户照片
+     * @param file
+     * @param request
+     * @return
+     */
     @PostMapping("/upload")
     @ResponseBody
-    public void upload(MultipartFile file, HttpServletRequest request) throws IOException {
+    public Result upload(MultipartFile file, HttpServletRequest request) {
+
+        File dir = new File(upload);
+        if(!dir.exists()){
+            dir.mkdirs();
+        }
 
         String originalFilename = file.getOriginalFilename();	//原始名称
 
@@ -225,6 +237,26 @@ public class UserController {
         File newFile = new File(upload+newFileName);
 
         //将内存中的数据写入磁盘
-        file.transferTo(newFile);
+        try {
+            file.transferTo(newFile);
+        } catch (IOException e) {
+            return ResultUtil.error("上传失败");
+        }
+
+        HashMap hashMap = new HashMap();
+        hashMap.put("src",newFileName);
+        return ResultUtil.success("上传成功",hashMap);
+    }
+
+
+    /**
+     * 新增用户
+     * @param user
+     * @return
+     */
+    @PostMapping("add")
+    public String add(User user){
+        userService.add(user);
+        return "redirect:/user/list";
     }
 }

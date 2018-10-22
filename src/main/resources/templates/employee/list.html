@@ -25,6 +25,9 @@
                             <button id="add-employee" class="layui-btn layui-btn-radius" lay-event="add">添加员工</button>
                         </div>
                         <div class="layui-card-body layui-col-md-offset2">
+                            <script type="text/html" id="employeebar">
+                                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+                            </script>
                             <table id="employee" lay-filter="employeeTable"></table>
                         </div>
                     </div>
@@ -38,8 +41,8 @@
         <script src="../js/employee.js"></script>
         <script src="../js/common.js"></script>
 
-        <div id="add-employee-form" class="model-form">
-            <form class="layui-form" action="">
+        <div id="employee-form-wrapper" class="model-form">
+            <form class="layui-form" id="employee-form">
                 <div class="layui-form-item">
                     <label class="layui-form-label">姓名</label>
                     <div class="layui-input-inline">

@@ -16,9 +16,9 @@
             <div class="layui-header">
                 <div class="layui-logo">汕头供电局</div>
                 <!-- 头部区域（可配合layui已有的水平导航） -->
-                <ul class="layui-nav layui-layout-left">
+                <ul class="layui-nav layui-layout-left" th:if="${session.loginInfo.name} eq 'admin'">
                     <li class="layui-nav-item"><a href="">控制台</a></li>
-                    <li class="layui-nav-item"><a href="/employee/list" th:if="${session.loginInfo.name} eq 'admin'">员工管理</a></li>
+                    <li class="layui-nav-item"><a href="/employee/list" >员工管理</a></li>
                     <li class="layui-nav-item"><a href="user/list">用户管理</a></li>
                 </ul>
                 <ul class="layui-nav layui-layout-right">

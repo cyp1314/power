@@ -34,11 +34,12 @@
                     </div>
                     <diV class="user-item-note">
                         <span class="item-header">备注：</span>
-                        <span class="note-content" th:text="${user.description}">这里是备注这里是备注这里是备注这里是备注</span>
+                        <span class="note-content" th:text="${user.description}">这里是备注这里是备注</span>
                     </diV>
                 </div>
                 <div class="layui-col-md5 right-side">
-                    <img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=97494292,1192020478&fm=26&gp=0.jpg" width="400" height="350">
+                    <!--src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=97494292,1192020478&fm=26&gp=0.jpg"-->
+                    <img th:src=@{'/'+${user.photo}} width="400" height="350">
                 </div>
             </div>
         </div>

@@ -1,8 +1,7 @@
 ! function () {
     var $ = layui.$
-    var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
 
-    upload = layui.upload;
+    var upload = layui.upload;
     upload.render({
         elem: '#photo',
         url: '/user/upload',
@@ -15,7 +14,11 @@
             $('#upload-help').hide()
         },
         done: function (res) {
-            console.log(res)
+            //上传成功
+            if(res.code == 200){
+                //将res返回的图片链接保存到表单的隐藏域
+                $("#photo-path").val(res.data.src);
+            }
         }
     });
 

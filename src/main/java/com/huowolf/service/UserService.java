@@ -123,4 +123,8 @@ public class UserService {
 
         return userTableList;
     }
+
+    public void add(User user){
+        userMapper.insertUseGeneratedKeys(user);
+    }
 }

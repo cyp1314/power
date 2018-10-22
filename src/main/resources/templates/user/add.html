@@ -24,7 +24,7 @@
                         <legend>添加用户信息</legend>
                     </fieldset>
 
-                    <form class="layui-form" action="">
+                    <form class="layui-form" action="/user/add" method="post">
                         <div class="layui-form-item">
                             <div class="layui-inline">
                                 <label class="layui-form-label">用户名</label>
@@ -76,8 +76,8 @@
                                     </div>
                                     <img class="layui-upload-img">
                                 </div>
-                                
                             </div>
+                            <input type="hidden" name="photo" id="photo-path">
                         </div>
                         <div class="layui-form-item layui-form-text">
                             <label class="layui-form-label">备注</label>

@@ -3,6 +3,7 @@
     var $ = layui.$;
     var form = layui.form;
     var table = layui.table;
+    var upload = layui.upload;
 
 
     table.render({
@@ -149,7 +150,7 @@
     table.on('toolbar(user)', function(obj){
         switch(obj.event){
             case 'add':
-                window.location.href="/user/add";
+                window.location.href="/user/toAdd";
                 break;
         };
     });
@@ -168,5 +169,17 @@
 
         //为搜索框赋初值(数据回显)
         form.val('search-user',data.field);
+    });
+
+
+    upload.render({
+        elem: '#user-btn-excel' //绑定元素
+        //,url: '/upload/' //上传接口
+        ,done: function(res){
+            //上传完毕回调
+        }
+        ,error: function(){
+            //请求异常回调
+        }
     });
 }();

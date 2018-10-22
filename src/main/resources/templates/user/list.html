@@ -22,7 +22,7 @@
                     <div class="breadmenu">
                         <span class="layui-breadcrumb">
                             <a href="javascript:;">汕头市供电局</a>
-                            <a id="area-name" href="javascript:;" th:text="${indexArea?.name}">金平区</a>
+                            <a id="area-name" href="javascript:;" th:text="${indexArea!=null} ? ${indexArea.name}:'所有用户数据'">金平区</a>
                             <a id="department-name" href="javascript:;" th:text="${indexDepartment?.name}"><cute>财务部</cute></a>
                         </span>
                     </div>

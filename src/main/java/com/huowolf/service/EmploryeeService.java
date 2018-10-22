@@ -59,9 +59,13 @@ public class EmploryeeService {
      * @param employee
      * @return
      */
-    public Integer add(Employee employee) {
+    public Boolean add(Employee employee) {
         int i = employeeMapper.insertSelective(employee);
-        return i;
+        if(i!=0){
+            return Boolean.TRUE;
+        }else{
+            return Boolean.FALSE;
+        }
     }
 
 
@@ -98,5 +102,14 @@ public class EmploryeeService {
             return Boolean.TRUE;
         else
             return Boolean.FALSE;
+    }
+
+
+    /**
+     * 删除用户
+     * @param id
+     */
+    public void delete(Integer id){
+        employeeMapper.deleteByPrimaryKey(id);
     }
 }

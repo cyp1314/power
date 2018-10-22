@@ -39,6 +39,12 @@ public class EmployeeController {
     @Autowired
     private EmploryeeService emploryeeService;
 
+    /**
+     * 员工列表
+     * @param session
+     * @param model
+     * @return
+     */
     @GetMapping("/list")
     public String list(HttpSession session,Model model){
 
@@ -59,6 +65,10 @@ public class EmployeeController {
     }
 
 
+    /**
+     * 展示员工表格
+     * @return
+     */
     @PostMapping("/showEmployeeTable")
     @ResponseBody
     public TableResponse<EmployeeTable> showEmployeeTable(){
@@ -70,6 +80,14 @@ public class EmployeeController {
         return employeeTableResponse;
     }
 
+
+    /**
+     * 添加员工
+     * @param name
+     * @param password
+     * @param area
+     * @return
+     */
     @PostMapping("/add")
     @ResponseBody
     public Result add(String name, String password, String area){
@@ -84,14 +102,21 @@ public class EmployeeController {
         employee.setPassword(pwd);
         employee.setAreaId(Integer.parseInt(area));
         employee.setType(new Byte("1"));
-        Integer flag= emploryeeService.add(employee);
-        if(flag==1){
+
+        if(emploryeeService.add(employee)){
             return ResultUtil.success();
         }else{
             return ResultUtil.error("保存失败");
         }
     }
 
+
+    /**
+     * 修改员工密码
+     * @param id
+     * @param newpassword
+     * @return
+     */
     @PostMapping("editPassword")
     @ResponseBody
     public Result editPassword(String id,String newpassword){
@@ -100,5 +125,18 @@ public class EmployeeController {
         }else{
             return ResultUtil.error("密码修改失败");
         }
+    }
+
+
+    /**
+     * 删除员工
+     * @param id
+     * @return
+     */
+    @PostMapping("delete")
+    @ResponseBody
+    public Result delete(Integer id){
+        emploryeeService.delete(id);
+        return ResultUtil.success("删除成功",null);
     }
 }

@@ -6,7 +6,7 @@
 	<groupId>com.huowolf</groupId>
 	<artifactId>power</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<name>power</name>
 	<description>Demo project for Spring Boot</description>
@@ -90,13 +90,6 @@
             <version>2.9.1</version>
         </dependency>
 
-		<!--spring boot 配置处理器 -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-configuration-processor</artifactId>
-			<optional>true</optional>
-		</dependency>
-
 		<!--启用不严格检查html标签-->
 		<dependency>
 			<groupId>net.sourceforge.nekohtml</groupId>
@@ -104,11 +97,12 @@
 			<version>1.9.22</version>
 		</dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
-        </dependency>
+        <!--启用外部tomcat时排除依赖-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-tomcat</artifactId>-->
+            <!--<scope>provided</scope>-->
+        <!--</dependency>-->
 
 	</dependencies>
 
