@@ -1,5 +1,7 @@
 package com.huowolf.model;
 
+import cn.afterturn.easypoi.excel.annotation.Excel;
+
 import javax.persistence.*;
 
 public class User {
@@ -7,14 +9,19 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Excel(name = "姓名")
     private String name;
 
+    @Excel(name = "工号")
     private String number;
 
+    @Excel(name = "电话")
     private String telphone;
 
+    @Excel(name = "照片",type = 2 ,width = 40 , height = 30)
     private String photo;
 
+    @Excel(name = "备注")
     private String description;
 
     @Column(name = "department_id")

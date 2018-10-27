@@ -1,5 +1,7 @@
 package com.huowolf.controller;
 
+import cn.afterturn.easypoi.excel.ExcelImportUtil;
+import cn.afterturn.easypoi.excel.entity.ImportParams;
 import com.huowolf.dto.TableResponse;
 import com.huowolf.dto.UserTable;
 import com.huowolf.model.Area;
@@ -24,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -47,6 +50,12 @@ public class UserController {
     //文件上传路径
     @Value("${spring.http.multipart.location}")
     private String upload;
+
+    @Autowired
+    private HashMap<String,Integer> areaMap;
+
+    @Autowired
+    private HashMap<String,Integer> departmentMap;
 
     @GetMapping("/list")
     public String list(HttpSession session,
@@ -218,12 +227,11 @@ public class UserController {
     /**
      * 上传用户照片
      * @param file
-     * @param request
      * @return
      */
     @PostMapping("/upload")
     @ResponseBody
-    public Result upload(MultipartFile file, HttpServletRequest request) {
+    public Result upload(MultipartFile file) {
 
         File dir = new File(upload);
         if(!dir.exists()){
@@ -258,5 +266,24 @@ public class UserController {
     public String add(User user){
         userService.add(user);
         return "redirect:/user/list";
+    }
+
+
+    @PostMapping("importExcel")
+    @ResponseBody
+    public Result importExcel(MultipartFile file) throws Exception {
+
+        ImportParams params = new ImportParams();
+        params.setNeedSave(true);
+        List<UserTable> userTableList = ExcelImportUtil.importExcel(file.getInputStream(), UserTable.class, params);
+        for(UserTable userTable:userTableList){
+            //填充用户表的关联字段
+            Integer areaId = areaMap.get(userTable.getArea());
+            userTable.setAreaId(areaId);
+
+            Integer departmentId = departmentMap.get(userTable.getDepartment());
+            userTable.setDepartmentId(departmentId);
+        }
+        return null;
     }
 }

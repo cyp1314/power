@@ -175,6 +175,8 @@
     upload.render({
         elem: '#user-btn-excel' //绑定元素
         //,url: '/upload/' //上传接口
+        ,accept: 'file'
+        ,acceptMime:'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         ,done: function(res){
             //上传完毕回调
         }
