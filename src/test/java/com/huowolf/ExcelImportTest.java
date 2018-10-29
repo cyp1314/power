@@ -18,11 +18,16 @@ public class ExcelImportTest {
     @Test
     public void importExcel(){
         ImportParams params = new ImportParams();
+        params.setTitleRows(1);
         params.setNeedSave(true);
         List<UserTable> list = ExcelImportUtil.importExcel(
                 new File("C:\\Users\\huowolf\\Desktop\\用户信息.xlsx"),
                 UserTable.class, params);
         System.out.println(list.size());
         System.out.println(ReflectionToStringBuilder.toString(list.get(0)));
+
+        UserTable userTable = list.get(0);
+        File file = new File(userTable.getPhoto());
+        System.out.println(file.getName());
     }
 }

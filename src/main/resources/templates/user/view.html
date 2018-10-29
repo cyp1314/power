@@ -37,8 +37,7 @@
                         <span class="note-content" th:text="${user.description}">这里是备注这里是备注</span>
                     </diV>
                 </div>
-                <div class="layui-col-md5 right-side">
-                    <!--src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=97494292,1192020478&fm=26&gp=0.jpg"-->
+                <div class="layui-col-md5 right-side" th:if="${user.photo}!=null">
                     <img th:src=@{'/'+${user.photo}} width="400" height="350">
                 </div>
             </div>

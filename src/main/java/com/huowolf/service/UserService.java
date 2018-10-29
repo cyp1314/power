@@ -1,5 +1,7 @@
 package com.huowolf.service;
 
+import cn.afterturn.easypoi.excel.ExcelImportUtil;
+import cn.afterturn.easypoi.excel.entity.ImportParams;
 import com.github.pagehelper.PageHelper;
 import com.huowolf.dto.UserTable;
 import com.huowolf.mapper.UserMapper;
@@ -7,6 +9,9 @@ import com.huowolf.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -18,6 +23,11 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private HashMap<String,Integer> areaMap;
+
+    @Autowired
+    private HashMap<String,Integer> departmentMap;
 
     /**
      * 如果区域ID和部门ID不为空，则根据区域ID和部门ID查询用户，
@@ -124,7 +134,42 @@ public class UserService {
         return userTableList;
     }
 
+    /**
+     * 新增用户
+     * @param user
+     */
     public void add(User user){
         userMapper.insertUseGeneratedKeys(user);
+    }
+
+
+    /**
+     * Excel导入用户数据
+     * @param inputStream
+     * @return
+     * @throws Exception
+     */
+    public Integer excelImport(InputStream inputStream) throws Exception {
+
+        ImportParams params = new ImportParams();
+        params.setTitleRows(1);
+        params.setNeedSave(true);
+        List<UserTable> userTableList = ExcelImportUtil.importExcel(inputStream, UserTable.class, params);
+        for(UserTable userTable:userTableList){
+            //填充用户表的关联字段
+            Integer areaId = areaMap.get(userTable.getArea());
+            userTable.setAreaId(areaId);
+
+            Integer departmentId = departmentMap.get(userTable.getDepartment());
+            userTable.setDepartmentId(departmentId);
+
+            File photoPath = new File(userTable.getPhoto());
+            String photo = photoPath.getName();
+            //设置photo为文件名，不加路径
+            userTable.setPhoto(photo);
+        }
+
+        int count = userMapper.insertList(userTableList);
+        return count;
     }
 }

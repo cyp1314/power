@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -96,5 +97,17 @@ public class MapperTest {
     public void testFindUserTableById(){
         UserTable userTable = userMapper.findUserTableById(30);
         System.out.println(userTable);
+    }
+
+    @Test
+    public void testInsertList(){
+        List<User> userList = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            User user = new User();
+            user.setName("test"+i);
+            user.setNumber("1518xx70"+i);
+            userList.add(user);
+        }
+        userMapper.insertList(userList);
     }
 }

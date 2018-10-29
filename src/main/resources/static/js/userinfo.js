@@ -174,11 +174,15 @@
 
     upload.render({
         elem: '#user-btn-excel' //绑定元素
-        //,url: '/upload/' //上传接口
+        ,url: '/user/importExcel' //上传接口
         ,accept: 'file'
         ,acceptMime:'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         ,done: function(res){
-            //上传完毕回调
+            layer.msg("已经成功导入了"+res.data+"条员工信息",{icon:1,time: 2000});
+            //重载表格
+            table.reload('user-id', {
+                url: '/user/showUserTable',
+            });
         }
         ,error: function(){
             //请求异常回调
