@@ -31,7 +31,7 @@ public class MapperTest {
     @Test
     public void TestFindAllEmploee(){
         List<EmployeeTable> allEmploee = employeeMapper.findAllEmploee();
-        System.out.println(allEmploee.get(0));
+        //System.out.println(allEmploee.get(0));
     }
 
     @Test
@@ -40,23 +40,6 @@ public class MapperTest {
         System.out.println(count);
     }
 
-
-    /**
-     * 初始化一些用户数据
-     */
-    @Test
-    public void testAddUser(){
-        for (int i = 1; i <= 6; i++) {
-            for (int j = 1; j <= 4; j++) {
-                User user = new User();
-                user.setName("test-"+i+"-"+j);
-                user.setNumber("1518xx"+i+j);
-                user.setAreaId(i);
-                user.setDepartmentId(j);
-                userMapper.insertSelective(user);
-            }
-        }
-    }
 
     @Test
     public void testFindAllUserTable(){
@@ -109,5 +92,26 @@ public class MapperTest {
             userList.add(user);
         }
         userMapper.insertList(userList);
+    }
+
+
+    /**
+     * 初始化一些用户测试数据
+     */
+    @Test
+    public void testAddUser(){
+        for (int i = 1; i <= 6; i++) {
+            for (int j = 1; j <= 4; j++) {
+                for (int k = 0; k < 5; k++) {
+                    User user = new User();
+                    user.setName("test-"+i+"-"+j+"-"+k);
+                    user.setNumber("1518xx"+i+j+k);
+                    user.setAreaId(i);
+                    user.setDepartmentId(j);
+                    userMapper.insertSelective(user);
+                }
+
+            }
+        }
     }
 }

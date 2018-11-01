@@ -99,7 +99,7 @@
         form.render();
 
         if (obj.event === 'del') {
-            layer.confirm('真的删除行么', function (index) {
+            layer.confirm('真的删除该行数据吗？', function (index) {
                 obj.del();
                 layer.close(index);
                 //向服务端发送删除指令
@@ -177,7 +177,11 @@
         ,url: '/user/importExcel' //上传接口
         ,accept: 'file'
         ,acceptMime:'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        ,before: function(obj){ //obj参数包含的信息，
+            layer.load(); //上传loading
+        }
         ,done: function(res){
+            layer.closeAll('loading'); //关闭loading
             layer.msg("已经成功导入了"+res.data+"条员工信息",{icon:1,time: 2000});
             //重载表格
             table.reload('user-id', {

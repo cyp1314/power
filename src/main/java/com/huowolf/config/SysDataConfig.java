@@ -1,4 +1,4 @@
-package com.huowolf.util;
+package com.huowolf.config;
 
 import com.huowolf.mapper.AreaMapper;
 import com.huowolf.mapper.DepartmentMapper;
@@ -16,7 +16,7 @@ import java.util.List;
  * Created by huowolf on 2018/10/27.
  */
 @Configuration
-public class SysDataUtil {
+public class SysDataConfig {
 
     @Autowired
     private AreaMapper areaMapper;

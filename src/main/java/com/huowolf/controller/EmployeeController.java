@@ -61,7 +61,7 @@ public class EmployeeController {
             model.addAttribute("departmentList",departmentList);
         }
 
-        return "/employee/list";
+        return "employee/list";
     }
 
 

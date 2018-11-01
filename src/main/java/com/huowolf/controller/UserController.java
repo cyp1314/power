@@ -222,11 +222,6 @@ public class UserController {
     @ResponseBody
     public Result upload(MultipartFile file) {
 
-        File dir = new File(upload);
-        if(!dir.exists()){
-            dir.mkdirs();
-        }
-
         String originalFilename = file.getOriginalFilename();	//原始名称
 
         //新的图片名称
