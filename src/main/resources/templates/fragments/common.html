@@ -34,23 +34,15 @@
 <div th:fragment="commonSide">
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
-            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree" lay-shrink="all" lay-filter="menu" th:each="area:${areaList}">
-                <!-- layui-nav-itemed -->
-                <li class="layui-nav-item " th:classappend="${area.id}==${indexArea?.id}?'layui-nav-itemed'">
-                    <a href="javascript:;" th:text="${area.name}">金平区</a>
-                    <dl class="layui-nav-child" th:each="department:${departmentList}">
-                        <dd th:classappend="${department.id}==${indexDepartment?.id} and ${area.id}==${indexArea?.id}?'layui-this'"><a href="javascript:;" th:text="${department.name}" th:attr="data-areaId=${area.id},data-departmentId=${department.id}">财务部</a></dd>
-                    </dl>
-                </li>
-            </ul>
+            <!-- 左侧导航区域 -->
+            <div id="nav" lay-filter="menu"></div>
         </div>
     </div>
 </div>
 <div th:fragment="commonFooter">
     <div class="layui-footer">
         <!-- 底部固定区域 -->
-        <span>© 2018 <a href="javascript:;" target="_blank">汕头大学 版权所有</a></span>
+        <span>© 2018 版权所有<a href="javascript:;" target="_blank"> &nbsp; 联系方式：274956285@qq.com</a></span>
     </div>
 
 
@@ -86,6 +78,10 @@
             </div>
         </form>
     </div>
+
+    <script src="../layui/layui.all.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/navbar.js"></script>
 </div>
 
 </body>

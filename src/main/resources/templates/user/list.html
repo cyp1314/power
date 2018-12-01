@@ -22,8 +22,8 @@
                     <div class="breadmenu">
                         <span class="layui-breadcrumb">
                             <a href="javascript:;">汕头市供电局</a>
-                            <a id="area-name" href="javascript:;" th:text="${indexArea!=null} ? ${indexArea.name}:'所有用户数据'">金平区</a>
-                            <a id="department-name" href="javascript:;" th:text="${indexDepartment?.name}"><cute>财务部</cute></a>
+                            <a id="area-name" href="javascript:;" th:text="${currentArea!=null} ? ${currentArea.name}:'所有用户数据'">金平区</a>
+                            <a id="department-name" href="javascript:;" th:text="${currentDepartment?.name}"><cute>财务部</cute></a>
                         </span>
                     </div>
 
@@ -54,8 +54,8 @@
                             <table id="user" lay-filter="user"></table>
 
                             <!--使用隐藏元素给js传值-->
-                            <span id="area-id" style="display: none;" th:text="${indexArea?.id}"></span>
-                            <span id="department-id" style="display: none;" th:text="${indexDepartment?.id}"></span>
+                            <span id="area-id" style="display: none;" th:text="${currentArea?.id}"></span>
+                            <span id="department-id" style="display: none;" th:text="${currentDepartment?.id}"></span>
                         </div>
                     </div>
                 </div>
@@ -64,8 +64,7 @@
             <!--底部区域-->
             <div th:replace="fragments/common::commonFooter"></div>
         </div>
-        <script src="../layui/layui.all.js"></script>
-        <script src="../js/common.js"></script>
+
         <script src="../js/userinfo.js"></script>
         <!-- user表单弹窗 -->
         <form id="user-form" lay-filter="user-edit-form" class="layui-form model-form" action="">

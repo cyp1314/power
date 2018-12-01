@@ -52,6 +52,7 @@
 
     //监听导航点击
     element.on('nav(menu)', function(elem){
+        alert("aaaa");
         //如果点击的是二级菜单
         if(elem.parent().prop("tagName")=='DD'){
 

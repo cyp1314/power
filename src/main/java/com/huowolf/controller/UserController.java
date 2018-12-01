@@ -4,11 +4,9 @@ import com.huowolf.dto.TableResponse;
 import com.huowolf.dto.UserTable;
 import com.huowolf.model.Area;
 import com.huowolf.model.Department;
-import com.huowolf.model.Employee;
 import com.huowolf.model.User;
 import com.huowolf.service.AreaService;
 import com.huowolf.service.DepartmentService;
-import com.huowolf.service.ServiceUtil;
 import com.huowolf.service.UserService;
 import com.huowolf.util.Result;
 import com.huowolf.util.ResultUtil;
@@ -19,7 +17,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -47,55 +44,31 @@ public class UserController {
     private String upload;
 
     @GetMapping("/list")
-    public String list(HttpSession session,
-                       Model model,
-                       @RequestParam(value = "area_id",required = false) Integer areaId,
-                       @RequestParam(value = "department_id",required = false) Integer departmentId){
-        Employee employee = (Employee) session.getAttribute("loginInfo");
+    public String list(
+            Model model,
+            @RequestParam(value = "area_id", required = false) Integer areaId,
+            @RequestParam(value = "department_id", required = false) Integer departmentId) {
 
-        List<Area> areaList = ServiceUtil.loadAreaByEmployee(areaService,employee);
-
-        if(areaList!=null){
-            model.addAttribute("areaList",areaList);
-        }
-
-        List<Department> departmentList = departmentService.findAllDepartment();
-        if(departmentList!=null){
-            model.addAttribute("departmentList",departmentList);
-        }
-
-        if(areaId!=null && departmentId!= null){
-
+        if (areaId != null && departmentId != null) {
             Area area = areaService.findAreaById(areaId);
-            model.addAttribute("indexArea",area);
+            model.addAttribute("currentArea", area);
 
             Department department = departmentService.findDepartmentById(departmentId);
-            model.addAttribute("indexDepartment",department);
+            model.addAttribute("currentDepartment", department);
         }
         return "user/list";
     }
 
 
     @GetMapping("/toAdd")
-    public String add(HttpSession session, Model model){
-        Employee employee = (Employee) session.getAttribute("loginInfo");
-
-        List<Area> areaList = ServiceUtil.loadAreaByEmployee(areaService,employee);
-
-        if(areaList!=null){
-            model.addAttribute("areaList",areaList);
-        }
-
-        List<Department> departmentList = departmentService.findAllDepartment();
-        if(departmentList!=null){
-            model.addAttribute("departmentList",departmentList);
-        }
+    public String add() {
         return "user/add";
     }
 
 
     /**
      * 返回用户数据表格所需数据
+     *
      * @param areaId
      * @param departmentId
      * @param page
@@ -108,22 +81,22 @@ public class UserController {
             @RequestParam("area_id") Integer areaId,
             @RequestParam("department_id") Integer departmentId,
             Integer page,
-            Integer limit){
+            Integer limit) {
 
 
-        List<UserTable> userTableList = userService.findUserByAreaIdAndDepartmentId(areaId,departmentId,page,limit);
+        List<UserTable> userTableList = userService.findUserByAreaIdAndDepartmentId(areaId, departmentId, page, limit);
 
         TableResponse<UserTable> userTableResponse = new TableResponse<>();
 
         //返回数据总数
         int count;
-        if(areaId!=null && departmentId!=null){
-            count = userService.countByAreaIdAndDepartmentId(areaId,departmentId);
-            if(count==0){
+        if (areaId != null && departmentId != null) {
+            count = userService.countByAreaIdAndDepartmentId(areaId, departmentId);
+            if (count == 0) {
                 userTableResponse.setCode(-1);
                 userTableResponse.setMsg("没有相关数据");
             }
-        }else {
+        } else {
             count = userService.countAll();
         }
 
@@ -137,17 +110,18 @@ public class UserController {
 
     /**
      * 修改用户
+     *
      * @param user
      * @return
      */
     @PostMapping("editUser")
     @ResponseBody
-    public Result editUser(User user){
+    public Result editUser(User user) {
 
         Boolean flag = userService.editUser(user);
-        if(flag){
+        if (flag) {
             return ResultUtil.success();
-        }else{
+        } else {
             return ResultUtil.error("更新失败");
         }
     }
@@ -155,33 +129,36 @@ public class UserController {
 
     /**
      * 删除用户
+     *
      * @param id
      * @return
      */
     @PostMapping("deleteUser")
     @ResponseBody
-    public Result deleteUser(Integer id){
+    public Result deleteUser(Integer id) {
         userService.deleteUser(id);
-        return ResultUtil.success("删除成功",null);
+        return ResultUtil.success("删除成功", null);
     }
 
 
     /**
      * 用户详情页
+     *
      * @param id
      * @param model
      * @return
      */
     @GetMapping("view")
-    public String  view(Integer id, Model model){
+    public String view(Integer id, Model model) {
         UserTable userTable = userService.findUserTableById(id);
-        model.addAttribute("user",userTable);
+        model.addAttribute("user", userTable);
         return "user/view";
     }
 
 
     /**
      * 搜索用户
+     *
      * @param searchKey
      * @param searchContent
      * @param areaId
@@ -191,9 +168,9 @@ public class UserController {
     @ResponseBody
     public TableResponse<UserTable> search(
             @RequestParam("search_key") String searchKey,
-            @RequestParam("search_content")String searchContent,
+            @RequestParam("search_content") String searchContent,
             @RequestParam("area_id") Integer areaId,
-            @RequestParam("department_id") Integer departmentId){
+            @RequestParam("department_id") Integer departmentId) {
 
         List<UserTable> userTableList = userService.searchUserTable(searchKey, searchContent, areaId, departmentId);
 
@@ -202,7 +179,7 @@ public class UserController {
         userTableResponse.setData(userTableList);
 
         int count = userTableList.size();
-        if(count==0){
+        if (count == 0) {
             userTableResponse.setCode(-1);
             userTableResponse.setMsg("没有相关数据");
         }
@@ -215,6 +192,7 @@ public class UserController {
 
     /**
      * 上传用户照片
+     *
      * @param file
      * @return
      */
@@ -222,11 +200,11 @@ public class UserController {
     @ResponseBody
     public Result upload(MultipartFile file) {
 
-        String originalFilename = file.getOriginalFilename();	//原始名称
+        String originalFilename = file.getOriginalFilename();    //原始名称
 
         //新的图片名称
         String newFileName = UUID.randomUUID() + originalFilename.substring(originalFilename.lastIndexOf("."));
-        File newFile = new File(upload+newFileName);
+        File newFile = new File(upload + newFileName);
 
         //将内存中的数据写入磁盘
         try {
@@ -236,18 +214,19 @@ public class UserController {
         }
 
         HashMap hashMap = new HashMap();
-        hashMap.put("src",newFileName);
-        return ResultUtil.success("上传成功",hashMap);
+        hashMap.put("src", newFileName);
+        return ResultUtil.success("上传成功", hashMap);
     }
 
 
     /**
      * 新增用户
+     *
      * @param user
      * @return
      */
     @PostMapping("add")
-    public String add(User user){
+    public String add(User user) {
         userService.add(user);
         return "redirect:/user/list";
     }
@@ -255,6 +234,7 @@ public class UserController {
 
     /**
      * 导入用户数据
+     *
      * @param file
      * @return
      * @throws Exception
@@ -264,6 +244,6 @@ public class UserController {
     public Result importExcel(MultipartFile file) throws Exception {
 
         Integer count = userService.excelImport(file.getInputStream());
-        return ResultUtil.success("导入成功",count);
+        return ResultUtil.success("导入成功", count);
     }
 }

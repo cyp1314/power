@@ -7,8 +7,7 @@
         elem: '#employee',
         height: 'full-200',
         minWidth: '100',
-        align: 'center',
-        width: 600,
+        width: 800,
         url: '/employee/showEmployeeTable', //数据接口
         method: 'post',
         cols: [
@@ -36,7 +35,7 @@
                 fixed: 'right',
                 title: '操作',
                 toolbar: '#employeebar',
-                width: 100,
+                //width: 100,
                 align: 'center'
             }
             ]

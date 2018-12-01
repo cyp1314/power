@@ -133,7 +133,7 @@
                 },
             });
         }else if (obj.event === 'view'){
-            layer.open({
+            var index = layer.open({
                 type: 2,
                 title: '查看用户详情',
                 shadeClose: true,
@@ -142,6 +142,8 @@
                 area: ['860px', '600px'],
                 content: '/user/view?id='+data.id
             });
+            //弹出即全屏
+            layer.full(index);
         }
     });
 

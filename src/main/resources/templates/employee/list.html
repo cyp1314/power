@@ -24,7 +24,7 @@
                             <span>员工信息</span>
                             <button id="add-employee" class="layui-btn layui-btn-radius" lay-event="add">添加员工</button>
                         </div>
-                        <div class="layui-card-body layui-col-md-offset2">
+                        <div class="layui-card-body">
                             <script type="text/html" id="employeebar">
                                 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
                             </script>
@@ -37,9 +37,7 @@
             <div th:replace="fragments/common::commonFooter">></div>
         </div>
 
-        <script src="../layui/layui.all.js"></script>
         <script src="../js/employee.js"></script>
-        <script src="../js/common.js"></script>
 
         <div id="employee-form-wrapper" class="model-form">
             <form class="layui-form" id="employee-form">
