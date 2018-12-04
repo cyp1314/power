@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../css/view.css">
 </head>
 <body>
+<!--startprint-->
     <div class="layui-container layui-bg-gray">
         <div class="layui-card">
             <div class="layui-card-header">用户详情</div>
@@ -40,8 +41,26 @@
                 <div class="layui-col-md5 right-side" th:if="${user.photo}!=null">
                     <img th:src=@{'/'+${user.photo}} width="400" height="350">
                 </div>
+
             </div>
+            <!--endprint-->
+            <a href="javascript:doPrint()">【打印本页员工信息】</a>
+            <a th:href="@{'/exceltohtml?id='+${user.id}}" target="_blank">【打印员工生育信息登记表】</a>
+            <a th:href="@{'/downloadexcel?id='+${user.id}}" >【下载员工生育信息登记表】</a>
         </div>
     </div>
+
+    <script>
+        function doPrint() {
+            bdhtml = window.document.body.innerHTML;
+            sprnstr = "<!--startprint-->";
+            eprnstr = "<!--endprint-->";
+            prnhtml = bdhtml.substr(bdhtml.indexOf(sprnstr) + 17);
+            prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));
+            window.document.body.innerHTML = prnhtml;
+            window.print();
+            window.document.body.innerHTML=bdhtml
+        }
+    </script>
 </body>
 </html>

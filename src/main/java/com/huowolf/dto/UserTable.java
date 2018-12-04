@@ -7,10 +7,10 @@ import com.huowolf.model.User;
  * Created by huowolf on 2018/10/14.
  */
 public class UserTable extends User {
-    @Excel(name = "所属区域")
+    @Excel(name = "区域",orderNum = "10")
     private String area;
 
-    @Excel(name = "所属部门")
+    @Excel(name = "部门",orderNum = "20")
     private String department;
 
     public String getArea() {

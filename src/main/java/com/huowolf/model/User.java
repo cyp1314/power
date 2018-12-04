@@ -15,14 +15,24 @@ public class User {
     @Excel(name = "工号")
     private String number;
 
+    @Excel(name = "性别")
+    private String sex;
+
+    @Excel(name = "身份证号",width = 20)
+    private String idNumber;
+
+    @Excel(name = "籍贯",width = 20)
+    private String address;
+
     @Excel(name = "电话")
     private String telphone;
 
-    @Excel(name = "照片",type = 2 ,width = 40 , height = 30)
+    //@Excel(name = "照片",type = 2 ,width = 40 , height = 30)
     private String photo;
 
-    @Excel(name = "备注")
+    @Excel(name = "备注",width = 20)
     private String description;
+
 
     @Column(name = "department_id")
     private Integer departmentId;
@@ -140,6 +150,31 @@ public class User {
      */
     public void setAreaId(Integer areaId) {
         this.areaId = areaId;
+    }
+
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getIdNumber() {
+        return idNumber;
+    }
+
+    public void setIdNumber(String idNumber) {
+        this.idNumber = idNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public User() {

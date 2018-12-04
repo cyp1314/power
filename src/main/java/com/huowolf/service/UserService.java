@@ -172,4 +172,12 @@ public class UserService {
         int count = userMapper.insertList(userTableList);
         return count;
     }
+
+    /**
+     * 得到所有用户数据，用于excel导出
+     * @return
+     */
+    public List<UserTable> findAllUserTable(){
+        return userMapper.findAllUserTable();
+    }
 }

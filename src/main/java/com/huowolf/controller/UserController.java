@@ -1,5 +1,9 @@
 package com.huowolf.controller;
 
+import cn.afterturn.easypoi.entity.vo.NormalExcelConstants;
+import cn.afterturn.easypoi.excel.entity.ExportParams;
+import cn.afterturn.easypoi.excel.entity.enmus.ExcelType;
+import cn.afterturn.easypoi.view.PoiBaseView;
 import com.huowolf.dto.TableResponse;
 import com.huowolf.dto.UserTable;
 import com.huowolf.model.Area;
@@ -14,9 +18,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -245,5 +252,26 @@ public class UserController {
 
         Integer count = userService.excelImport(file.getInputStream());
         return ResultUtil.success("导入成功", count);
+    }
+
+
+    /**
+     * 导出用户信息
+     * @param map
+     * @param request
+     * @param response
+     */
+    @RequestMapping("exportExcel")
+    public void exportExcel(ModelMap map, HttpServletRequest request, HttpServletResponse response){
+
+        List<UserTable> allUserTable = userService.findAllUserTable();
+
+        ExportParams params = new ExportParams("用户信息", "sheet1", ExcelType.XSSF);
+        //params.setFreezeCol(1);
+        map.put(NormalExcelConstants.DATA_LIST, allUserTable);
+        map.put(NormalExcelConstants.CLASS, UserTable.class);
+        map.put(NormalExcelConstants.PARAMS, params);
+        map.put(NormalExcelConstants.FILE_NAME,"用户信息");
+        PoiBaseView.render(map, request, response, NormalExcelConstants.EASYPOI_EXCEL_VIEW);
     }
 }

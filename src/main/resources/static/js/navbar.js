@@ -1,3 +1,4 @@
+//将url参数转化为json对象
 function queryString(url){
     var arr=[]; //存储参数的数组
     var res={}; //存储最终JSON结果对象

@@ -58,7 +58,9 @@
         initSort: {
             field: 'id' //排序字段，对应 cols 设定的各字段名
             ,type: 'asc' //排序方式  asc: 升序、desc: 降序、null: 默认排序
-        }
+        },
+        title:'用户信息',
+        defaultToolbar: ['filter', 'print']
     });
 
 
@@ -193,5 +195,17 @@
         ,error: function(){
             //请求异常回调
         }
+    });
+
+    $('#user-btn-excel-down').on('click', function () {
+        $.ajax({
+            type: "POST",
+            url: "XXX",
+            success: function(res) {
+                if(res.code==200){
+                    table.exportFile(res.title, res.data, 'xls');
+                }
+            }
+        });
     });
 }();
