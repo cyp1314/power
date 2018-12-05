@@ -7,12 +7,13 @@
     <link rel="stylesheet" href="../css/view.css">
 </head>
 <body>
-<!--startprint-->
+
     <div class="layui-container layui-bg-gray">
         <div class="layui-card">
+            <!--startprint-->
             <div class="layui-card-header">用户详情</div>
             <div class="layui-card-body layui-row">
-                <div class="layui-col-md5 left-side">
+                <div class="layui-col-md6 left-side">
                     <div class="user-item">
                         <span class="item-header">姓名：</span>
                         <span th:text="${user.name}">王五</span>
@@ -20,6 +21,18 @@
                     <div class="user-item">
                         <span class="item-header">工号：</span>
                         <span th:text="${user.number}">21518xxx</span>
+                    </div>
+                    <div class="user-item">
+                        <span class="item-header">性别：</span>
+                        <span th:text="${user.sex}">男</span>
+                    </div>
+                    <div class="user-item">
+                        <span class="item-header">身份证号：</span>
+                        <span th:text="${user.idNumber}">xxx</span>
+                    </div>
+                    <div class="user-item">
+                        <span class="item-header">籍贯：</span>
+                        <span th:text="${user.address}">广东省汕头市</span>
                     </div>
                     <div class="user-item">
                         <span class="item-header">电话：</span>
@@ -33,13 +46,14 @@
                         <span class="item-header">部门：</span>
                         <span th:text="${user.department}">财务部</span>
                     </div>
-                    <diV class="user-item-note">
-                        <span class="item-header">备注：</span>
-                        <span class="note-content" th:text="${user.description}">这里是备注这里是备注</span>
-                    </diV>
+
                 </div>
-                <div class="layui-col-md5 right-side" th:if="${user.photo}!=null">
-                    <img th:src=@{'/'+${user.photo}} width="400" height="350">
+                <div class="layui-col-md6 right-side" th:if="${user.photo}!=null">
+                    <img th:src=@{'/'+${user.photo}} width="350" height="330">
+                    <diV class="user-item-note">
+                        <span class="item-header">简介：</span>
+                        <span class="note-content" th:text="${user.description}">这里是个人简介</span>
+                    </diV>
                 </div>
 
             </div>
@@ -57,6 +71,7 @@
             eprnstr = "<!--endprint-->";
             prnhtml = bdhtml.substr(bdhtml.indexOf(sprnstr) + 17);
             prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));
+            console.log(prnhtml);
             window.document.body.innerHTML = prnhtml;
             window.print();
             window.document.body.innerHTML=bdhtml

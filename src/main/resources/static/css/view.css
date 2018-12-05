@@ -19,9 +19,7 @@
 .layui-card-body{
     padding-bottom: 30px;
 }
-.left-side{
 
-}
 .user-item{
     margin: 10px;
     height: 50px;
@@ -44,7 +42,4 @@
 .note-content{
     display: inline-block;
     width: 170px;
-}
-.right-side{
-    margin-top: 20px;
 }

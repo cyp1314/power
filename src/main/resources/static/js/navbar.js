@@ -50,5 +50,9 @@ layui.config({
         $("#area-name").text(parent.text());
         $("#department-name").text(data.field.title);
 
+        //修改页面中给js传值的隐藏参数，该参数在数据导出时仍会用到
+        var res = queryString(data.field.href);
+        $('#area-id').text(res.area_id);
+        $('#department-id').text(res.department_id);
     });
 });

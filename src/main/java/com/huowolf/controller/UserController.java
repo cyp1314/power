@@ -63,6 +63,15 @@ public class UserController {
             Department department = departmentService.findDepartmentById(departmentId);
             model.addAttribute("currentDepartment", department);
         }
+
+        //处理编辑弹出层中的区域和部门数据的加载问题
+        //加载所有的区域和部门
+        List<Area> areaList = areaService.findAllArea();
+        model.addAttribute("areaList",areaList);
+
+        List<Department> departmentList = departmentService.findAllDepartment();
+        model.addAttribute("departmentList",departmentList);
+
         return "user/list";
     }
 
@@ -262,13 +271,20 @@ public class UserController {
      * @param response
      */
     @RequestMapping("exportExcel")
-    public void exportExcel(ModelMap map, HttpServletRequest request, HttpServletResponse response){
+    public void exportExcel(@RequestParam(value = "area_id", required = false) Integer areaId,
+                            @RequestParam(value = "department_id", required = false) Integer departmentId,
+                            ModelMap map, HttpServletRequest request, HttpServletResponse response){
 
-        List<UserTable> allUserTable = userService.findAllUserTable();
+        List<UserTable> userTableList ;
+        if(areaId==null && departmentId==null){
+            userTableList = userService.findAllUserTable();
+        }else{
+            userTableList = userService.findAllUserTableByAreaIdAndDepartmentId(areaId,departmentId);
+        }
+
 
         ExportParams params = new ExportParams("用户信息", "sheet1", ExcelType.XSSF);
-        //params.setFreezeCol(1);
-        map.put(NormalExcelConstants.DATA_LIST, allUserTable);
+        map.put(NormalExcelConstants.DATA_LIST, userTableList);
         map.put(NormalExcelConstants.CLASS, UserTable.class);
         map.put(NormalExcelConstants.PARAMS, params);
         map.put(NormalExcelConstants.FILE_NAME,"用户信息");

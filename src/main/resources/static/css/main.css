@@ -73,3 +73,18 @@
     color: #666;
 }
 
+#photo-title{
+    margin-left: 20px;
+}
+
+#photoImg{
+    border: 1px solid #e6e6e6;
+    margin-left: 20px;
+    width: 320px;
+    height: 300px;
+    display: block;
+}
+#photo1{
+    margin-left: 20px;
+}
+

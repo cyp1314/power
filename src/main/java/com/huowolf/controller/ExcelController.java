@@ -55,6 +55,7 @@ public class ExcelController {
         ExcelToHtmlParams params = new ExcelToHtmlParams(WorkbookFactory.create(POICacheManager.getFile(excelpath+filepath)), true, "yes");
         response.getOutputStream().write(ExcelXorHtmlUtil.excelToHtml(params).getBytes());
         String change = "<script>document.getElementsByTagName('table')[0].style.margin='0 auto';</script>";
+        change +="<script>window.print()</script>";
         response.getOutputStream().write(change.getBytes());
         response.getOutputStream().close();
     }

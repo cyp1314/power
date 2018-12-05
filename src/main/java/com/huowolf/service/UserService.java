@@ -180,4 +180,15 @@ public class UserService {
     public List<UserTable> findAllUserTable(){
         return userMapper.findAllUserTable();
     }
+
+    /**
+     * 根据区域id和部门id得到对应的所有用户数据，用于excel导出
+     * @param areaId
+     * @param departmentId
+     * @return
+     */
+    public List<UserTable> findAllUserTableByAreaIdAndDepartmentId(Integer areaId,Integer departmentId){
+        List<UserTable> userTableList = userMapper.findUserTableByAreaIdAndDepartmentId(areaId, departmentId);
+        return userTableList;
+    }
 }
