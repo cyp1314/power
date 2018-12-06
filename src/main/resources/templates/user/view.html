@@ -5,77 +5,82 @@
     <title>查看用户详情</title>
     <link rel="stylesheet" href="../layui/css/layui.css">
     <link rel="stylesheet" href="../css/view.css">
+    <style media="print">
+        @page {
+            size: auto;  /* auto is the initial value */
+            margin: 10mm; /* this affects the margin in the printer settings */
+        }
+    </style>
 </head>
 <body>
 
-    <div class="layui-container layui-bg-gray">
-        <div class="layui-card">
-            <!--startprint-->
-            <div class="layui-card-header">用户详情</div>
-            <div class="layui-card-body layui-row">
-                <div class="layui-col-md6 left-side">
-                    <div class="user-item">
-                        <span class="item-header">姓名：</span>
-                        <span th:text="${user.name}">王五</span>
-                    </div>
-                    <div class="user-item">
-                        <span class="item-header">工号：</span>
-                        <span th:text="${user.number}">21518xxx</span>
-                    </div>
-                    <div class="user-item">
-                        <span class="item-header">性别：</span>
-                        <span th:text="${user.sex}">男</span>
-                    </div>
-                    <div class="user-item">
-                        <span class="item-header">身份证号：</span>
-                        <span th:text="${user.idNumber}">xxx</span>
-                    </div>
-                    <div class="user-item">
-                        <span class="item-header">籍贯：</span>
-                        <span th:text="${user.address}">广东省汕头市</span>
-                    </div>
-                    <div class="user-item">
-                        <span class="item-header">电话：</span>
-                        <span th:text="${user.telphone}">13582801100</span>
-                    </div>
-                    <div class="user-item">
-                        <span class="item-header">区域：</span>
-                        <span th:text="${user.area}">金平区</span>
-                    </div>
-                    <div class="user-item">
-                        <span class="item-header">部门：</span>
-                        <span th:text="${user.department}">财务部</span>
-                    </div>
-
+<div class="layui-container layui-bg-gray">
+    <div class="layui-card">
+        <div class="layui-card-header">用户详情</div>
+        <div class="layui-card-body layui-row">
+            <div class="layui-col-md6 left-side">
+                <div class="user-item">
+                    <span class="item-header">姓名：</span>
+                    <span th:text="${user.name}">王五</span>
                 </div>
-                <div class="layui-col-md6 right-side" th:if="${user.photo}!=null">
-                    <img th:src=@{'/'+${user.photo}} width="350" height="330">
-                    <diV class="user-item-note">
-                        <span class="item-header">简介：</span>
-                        <span class="note-content" th:text="${user.description}">这里是个人简介</span>
-                    </diV>
+                <div class="user-item">
+                    <span class="item-header">工号：</span>
+                    <span th:text="${user.number}">21518xxx</span>
+                </div>
+                <div class="user-item">
+                    <span class="item-header">性别：</span>
+                    <span th:text="${user.sex}">男</span>
+                </div>
+                <div class="user-item">
+                    <span class="item-header">身份证号：</span>
+                    <span th:text="${user.idNumber}">xxx</span>
+                </div>
+                <div class="user-item">
+                    <span class="item-header">籍贯：</span>
+                    <span th:text="${user.address}">广东省汕头市</span>
+                </div>
+                <div class="user-item">
+                    <span class="item-header">电话：</span>
+                    <span th:text="${user.telphone}">13582801100</span>
+                </div>
+                <div class="user-item">
+                    <span class="item-header">区域：</span>
+                    <span th:text="${user.area}">金平区</span>
+                </div>
+                <div class="user-item">
+                    <span class="item-header">部门：</span>
+                    <span th:text="${user.department}">财务部</span>
                 </div>
 
             </div>
+            <!--startprint-->
+            <div class="layui-col-md6 right-side" th:if="${user.photo}!=null">
+                <img th:src=@{'/'+${user.photo}} width="350" height="330">
+                <diV class="user-item-note">
+                    <span class="item-header">简介：</span>
+                    <span class="note-content" th:text="${user.description}">这里是个人简介</span>
+                </diV>
+            </div>
             <!--endprint-->
-            <a href="javascript:doPrint()">【打印本页员工信息】</a>
-            <a th:href="@{'/exceltohtml?id='+${user.id}}" target="_blank">【打印员工生育信息登记表】</a>
-            <a th:href="@{'/downloadexcel?id='+${user.id}}" >【下载员工生育信息登记表】</a>
         </div>
-    </div>
 
-    <script>
-        function doPrint() {
-            bdhtml = window.document.body.innerHTML;
-            sprnstr = "<!--startprint-->";
-            eprnstr = "<!--endprint-->";
-            prnhtml = bdhtml.substr(bdhtml.indexOf(sprnstr) + 17);
-            prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));
-            console.log(prnhtml);
-            window.document.body.innerHTML = prnhtml;
-            window.print();
-            window.document.body.innerHTML=bdhtml
-        }
-    </script>
+        <a href="javascript:doPrint()">【打印本页员工信息】</a>
+        <a th:href="@{'/exceltohtml?id='+${user.id}}" target="_blank">【打印员工生育信息登记表】</a>
+        <a th:href="@{'/downloadexcel?id='+${user.id}}">【下载员工生育信息登记表】</a>
+    </div>
+</div>
+
+<script>
+    function doPrint() {
+        bdhtml = window.document.body.innerHTML;
+        sprnstr = "<!--startprint-->";
+        eprnstr = "<!--endprint-->";
+        prnhtml = bdhtml.substr(bdhtml.indexOf(sprnstr) + 17);
+        prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));
+        window.document.body.innerHTML = prnhtml;
+        window.print();
+        window.document.body.innerHTML = bdhtml
+    }
+</script>
 </body>
 </html>

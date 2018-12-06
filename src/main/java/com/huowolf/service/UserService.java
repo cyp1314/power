@@ -149,24 +149,32 @@ public class UserService {
      * @return
      * @throws Exception
      */
-    public Integer excelImport(InputStream inputStream) throws Exception {
+    public Integer excelImport(InputStream inputStream) {
 
         ImportParams params = new ImportParams();
         params.setTitleRows(1);
         params.setNeedSave(true);
-        List<UserTable> userTableList = ExcelImportUtil.importExcel(inputStream, UserTable.class, params);
+        List<UserTable> userTableList;
+
+        try {
+            userTableList = ExcelImportUtil.importExcel(inputStream, UserTable.class, params);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+
         for(UserTable userTable:userTableList){
             //填充用户表的关联字段
-            Integer areaId = areaMap.get(userTable.getArea());
-            userTable.setAreaId(areaId);
+            if(userTable.getArea()!=null){
+                Integer areaId = areaMap.get(userTable.getArea());
+                userTable.setAreaId(areaId);
+            }
 
-            Integer departmentId = departmentMap.get(userTable.getDepartment());
-            userTable.setDepartmentId(departmentId);
+            if(userTable.getDepartment()!=null){
+                Integer departmentId = departmentMap.get(userTable.getDepartment());
+                userTable.setDepartmentId(departmentId);
+            }
 
-            File photoPath = new File(userTable.getPhoto());
-            String photo = photoPath.getName();
-            //设置photo为文件名，不加路径
-            userTable.setPhoto(photo);
         }
 
         int count = userMapper.insertList(userTableList);

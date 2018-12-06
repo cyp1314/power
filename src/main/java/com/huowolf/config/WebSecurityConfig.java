@@ -33,6 +33,7 @@ public class WebSecurityConfig extends WebMvcConfigurerAdapter {
         // 排除配置
         addInterceptor.excludePathPatterns("/tologin");
         addInterceptor.excludePathPatterns("/login");
+        addInterceptor.excludePathPatterns("/kaptcha");
         addInterceptor.excludePathPatterns("/error");
 
         // 拦截配置

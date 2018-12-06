@@ -36,6 +36,20 @@
                             </div>
                         </div>
                         <div class="layui-form-item">
+                            <label class="layui-form-label"><i class="layui-icon layui-icon-vercode"></i></label>
+                            <div class="layui-input-block">
+                                <div class="layui-row inline-block">
+                                    <div class="layui-col-xs7">
+                                        <input id="code" name="code" type="text" lay-verify="required" placeholder="请输入验证码"
+                                               class="layui-input">
+                                    </div>
+                                    <div class="layui-col-xs5" style="padding-left: 10px;">
+                                        <img class="login-captcha" src="/kaptcha" onclick="this.src='/kaptcha?'+Math.random()" title="看不清？点击图片换一张"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
                             <button lay-filter="login-submit" class="layui-btn layui-btn-fluid" lay-submit>登 录</button>
                         </div>
                         

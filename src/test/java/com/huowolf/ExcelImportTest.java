@@ -31,9 +31,6 @@ public class ExcelImportTest {
         System.out.println(list.size());
         System.out.println(ReflectionToStringBuilder.toString(list.get(0)));
 
-        UserTable userTable = list.get(0);
-        File file = new File(userTable.getPhoto());
-        System.out.println(file.getName());
     }
 
 

@@ -77,7 +77,12 @@ public class UserController {
 
 
     @GetMapping("/toAdd")
-    public String add() {
+    public String add(Model model) {
+        List<Area> areaList = areaService.findAllArea();
+        model.addAttribute("areaList",areaList);
+
+        List<Department> departmentList = departmentService.findAllDepartment();
+        model.addAttribute("departmentList",departmentList);
         return "user/add";
     }
 
@@ -260,7 +265,12 @@ public class UserController {
     public Result importExcel(MultipartFile file) throws Exception {
 
         Integer count = userService.excelImport(file.getInputStream());
-        return ResultUtil.success("导入成功", count);
+        if(count!=-1){
+            return ResultUtil.success("导入成功", count);
+        }else{
+            return ResultUtil.error("导入失败");
+        }
+
     }
 
 

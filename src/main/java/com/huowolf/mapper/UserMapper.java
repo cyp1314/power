@@ -10,8 +10,12 @@ import java.util.List;
 
 public interface UserMapper extends BaseMapper<User> {
 
-    @Select("select user.*,area.`name` as area,department.`name` as department from user,area,department " +
-            "where user.`area_id`=area.`id` and user.`department_id`=department.`id` order by id")
+    @Select("select user.*,area.name as area,department.name as department" +
+            " from user left join area " +
+            "on user.area_id=area.id " +
+            "left join department " +
+            "on user.department_id=department.id " +
+            "order by user.id")
     List<UserTable> findAllUserTable();
 
     @Select("SELECT user.*,area.`name` AS area,department.`name` AS department FROM user,area,department WHERE user.`area_id`=area.`id` " +

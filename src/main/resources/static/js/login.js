@@ -12,14 +12,13 @@
         type: 'post',
         dataType: 'JSON',
         success: function (data) {
-            console.log(JSON.stringify(data));
             if (data.code == 200) {
                 layer.msg('登录成功', {icon: 1}, function () {
                     location.replace('/');
                 });
             } else {
                 layer.closeAll('loading');
-                layer.msg('账号或密码错误', {icon: 5});
+                layer.msg(data.msg, {icon: 5});
             }
         },
         error: function (xhr) {

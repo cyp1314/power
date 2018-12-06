@@ -24,7 +24,7 @@ public class User {
     @Excel(name = "籍贯",width = 20)
     private String address;
 
-    @Excel(name = "电话")
+    @Excel(name = "电话",width = 15)
     private String telphone;
 
     //@Excel(name = "照片",type = 2 ,width = 40 , height = 30)
@@ -180,10 +180,12 @@ public class User {
     public User() {
     }
 
-    public User(Integer id,String name, String number, String telphone, String photo, String description, Integer departmentId, Integer areaId) {
-        this.id = id;
+    public User(String name, String number, String sex, String idNumber, String address, String telphone, String photo, String description, Integer departmentId, Integer areaId) {
         this.name = name;
         this.number = number;
+        this.sex = sex;
+        this.idNumber = idNumber;
+        this.address = address;
         this.telphone = telphone;
         this.photo = photo;
         this.description = description;
@@ -191,13 +193,15 @@ public class User {
         this.areaId = areaId;
     }
 
-
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", number='" + number + '\'' +
+                ", sex='" + sex + '\'' +
+                ", idNumber='" + idNumber + '\'' +
+                ", address='" + address + '\'' +
                 ", telphone='" + telphone + '\'' +
                 ", photo='" + photo + '\'' +
                 ", description='" + description + '\'' +

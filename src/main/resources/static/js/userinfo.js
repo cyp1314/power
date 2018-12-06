@@ -36,13 +36,13 @@
                 sort: true
             }, {
                 field: 'sex',
-                title: '性别'
-            },
-                {
-                    field: 'idNumber',
-                    title: '身份证号',
-                    width: 150
-                }, {
+                title: '性别',
+                width: 80
+            }, {
+                field: 'idNumber',
+                title: '身份证号',
+                width: 150
+            }, {
                 field: 'address',
                 title: '籍贯'
             }, {
@@ -60,7 +60,6 @@
                 field: 'department',
                 title: '所在部门',
                 sort: true,
-                hide: true
             }, {
                 fixed: 'right',
                 title: '操作',
@@ -238,16 +237,24 @@
         , url: '/user/importExcel' //上传接口
         , accept: 'file'
         , acceptMime: 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-        , before: function (obj) { //obj参数包含的信息，
+        , before: function (obj) {
             layer.load(); //上传loading
         }
         , done: function (res) {
             layer.closeAll('loading'); //关闭loading
-            layer.msg("已经成功导入了" + res.data + "条员工信息", {icon: 1, time: 2000});
-            //重载表格
-            table.reload('user-id', {
-                url: '/user/showUserTable',
-            });
+            if (res.code == 200) {
+                layer.msg("已经成功导入了" + res.data + "条员工信息", {icon: 1, time: 2000});
+                //重载表格
+                table.reload('user-id', {
+                    url: '/user/showUserTable',
+                });
+            } else {
+                layer.msg(data.msg, {icon: 2, time: 2000});
+            }
+
+        }
+        , error: function () {
+            layer.closeAll('loading'); //关闭loading
         }
     });
 
