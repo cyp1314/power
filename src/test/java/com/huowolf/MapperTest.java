@@ -102,10 +102,21 @@ public class MapperTest {
     public void testAddUser(){
         for (int i = 1; i <= 6; i++) {
             for (int j = 1; j <= 4; j++) {
-                for (int k = 0; k < 5; k++) {
+                for (int k = 0; k < 15; k++) {
                     User user = new User();
-                    user.setName("test-"+i+"-"+j+"-"+k);
+                    user.setName("test"+i+j+k);
                     user.setNumber("1518xx"+i+j+k);
+
+                    int random=(int)(Math.random()*10);
+                    if(random >= 5){
+                        user.setSex("男");
+                    }else{
+                        user.setSex("女");
+                    }
+
+                    user.setIdNumber("4405051967080910"+j+k);
+                    user.setAddress("广东省汕头市");
+                    user.setTelphone("153213206"+i+j);
                     user.setAreaId(i);
                     user.setDepartmentId(j);
                     userMapper.insertSelective(user);

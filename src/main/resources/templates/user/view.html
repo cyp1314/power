@@ -16,6 +16,7 @@
 
 <div class="layui-container layui-bg-gray">
     <div class="layui-card">
+        <!--startprint-->
         <div class="layui-card-header">用户详情</div>
         <div class="layui-card-body layui-row">
             <div class="layui-col-md6 left-side">
@@ -53,13 +54,13 @@
                 </div>
 
             </div>
-            <!--startprint-->
-            <div class="layui-col-md6 right-side" th:if="${user.photo}!=null">
-                <img th:src=@{'/'+${user.photo}} width="350" height="330">
+
+            <div class="layui-col-md6 right-side" >
                 <diV class="user-item-note">
                     <span class="item-header">简介：</span>
                     <span class="note-content" th:text="${user.description}">这里是个人简介</span>
                 </diV>
+                <img th:src=@{'/'+${user.photo}} width="350" height="330" th:if="${user.photo}!=null">
             </div>
             <!--endprint-->
         </div>

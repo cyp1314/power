@@ -78,13 +78,16 @@
 }
 
 #photoImg{
-    border: 1px solid #e6e6e6;
-    margin-left: 20px;
     width: 320px;
     height: 300px;
     display: block;
 }
 #photo1{
     margin-left: 20px;
+}
+
+.layui-upload-image{
+    border: 1px solid #e6e6e6;
+    margin: 12px 20px;
 }
 

@@ -76,7 +76,7 @@ public class ExcelController {
         map.put("name", user.getName()!=null? user.getName() : "");
         map.put("sex", user.getSex()!=null? user.getSex() : "");
         map.put("address", user.getAddress()!=null? user.getAddress() : "");
-        map.put("id_number", user.getIdNumber()!=null? user.getAddress() : "");
+        map.put("id_number", user.getIdNumber()!=null? user.getIdNumber() : "");
 
         Workbook workbook = ExcelExportUtil.exportExcel(params, map);
 
@@ -124,7 +124,7 @@ public class ExcelController {
             map.put("name", user.getName()!=null? user.getName() : "");
             map.put("sex", user.getSex()!=null? user.getSex() : "");
             map.put("address", user.getAddress()!=null? user.getAddress() : "");
-            map.put("id_number", user.getIdNumber()!=null? user.getAddress() : "");
+            map.put("id_number", user.getIdNumber()!=null? user.getIdNumber() : "");
 
             Workbook workbook = ExcelExportUtil.exportExcel(params, map);
 

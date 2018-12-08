@@ -55,11 +55,11 @@ CREATE TABLE `employee` (
   `type` tinyint(4) DEFAULT NULL,
   `area_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `employee` */
 
-insert  into `employee`(`id`,`name`,`password`,`type`,`area_id`) values (1,'admin','21232f297a57a5a743894a0e4a801fc3',0,NULL);
+insert  into `employee`(`id`,`name`,`password`,`type`,`area_id`) values (1,'admin','21232f297a57a5a743894a0e4a801fc3',0,NULL),(2,'lisi','dc3a8f1670d65bea69b7b65048a0ac40',1,1);
 
 /*Table structure for table `user` */
 
@@ -69,7 +69,10 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
   `number` varchar(50) DEFAULT NULL,
+  `sex` varchar(50) DEFAULT NULL,
+  `id_number` varchar(60) DEFAULT NULL,
   `telphone` varchar(50) DEFAULT NULL,
+  `address` varchar(200) DEFAULT NULL,
   `photo` varchar(50) DEFAULT NULL,
   `description` varchar(200) DEFAULT NULL,
   `department_id` int(11) DEFAULT NULL,

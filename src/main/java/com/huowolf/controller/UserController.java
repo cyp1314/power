@@ -14,6 +14,8 @@ import com.huowolf.service.DepartmentService;
 import com.huowolf.service.UserService;
 import com.huowolf.util.Result;
 import com.huowolf.util.ResultUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -45,6 +47,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     //文件上传路径
     @Value("${spring.http.multipart.location}")
@@ -226,6 +230,8 @@ public class UserController {
         //新的图片名称
         String newFileName = UUID.randomUUID() + originalFilename.substring(originalFilename.lastIndexOf("."));
         File newFile = new File(upload + newFileName);
+
+        logger.info("开始上传文件："+newFileName);
 
         //将内存中的数据写入磁盘
         try {

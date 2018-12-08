@@ -2,13 +2,16 @@ package com.huowolf.controller;
 
 import com.huowolf.dto.EmployeeTable;
 import com.huowolf.dto.TableResponse;
+import com.huowolf.model.Area;
 import com.huowolf.model.Employee;
+import com.huowolf.service.AreaService;
 import com.huowolf.service.EmploryeeService;
 import com.huowolf.util.MD5Utils;
 import com.huowolf.util.Result;
 import com.huowolf.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,12 +29,17 @@ public class EmployeeController {
     @Autowired
     private EmploryeeService emploryeeService;
 
+    @Autowired
+    private AreaService areaService;
+
     /**
      * 员工列表
      * @return
      */
     @GetMapping("/list")
-    public String list(){
+    public String list(Model model){
+        List<Area> areaList = areaService.findAllArea();
+        model.addAttribute("areaList",areaList);
         return "employee/list";
     }
 

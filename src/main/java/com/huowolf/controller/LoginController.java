@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.awt.*;
 import java.io.IOException;
 
 /**
@@ -80,7 +79,7 @@ public class LoginController {
         ChineseCaptcha chineseCaptcha = new ChineseCaptcha(110, 48, 4);
 
         // 设置字体
-        chineseCaptcha.setFont(new Font("楷体", Font.PLAIN, 28));  // 有默认字体，可以不用设置
+        //chineseCaptcha.setFont(new Font("楷体", Font.PLAIN, 28));  // 有默认字体，可以不用设置
 
         // 生成的验证码
         String code = chineseCaptcha.text();
@@ -91,5 +90,7 @@ public class LoginController {
 
         // 输出图片流
         chineseCaptcha.out(response.getOutputStream());
+
+        response.getOutputStream().close();
     }
 }
