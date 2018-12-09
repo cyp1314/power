@@ -6,6 +6,10 @@
 
 本项目使用Springboot框架开发，数据库层面整合通用Mapper,前端使用LayUI框架。
 
+![](https://github.com/huowolf/power/blob/master/src/test/resources/20181209172712.png)
+
+![](https://github.com/huowolf/power/blob/master/src/test/resources/20181209170507.png)
+
 # 项目功能
 
 1. 登录（验证码）
@@ -39,4 +43,6 @@
 3. 项目的访问地址：localhost:1801/
 4. 项目中用到的Excel模板位于`src/test/resource/用户信息.xlsx`,请使用该Excel模板测试Excel导入功能。
 5. 超级管理员登录用户名：admin 密码：admin
+
+
 
