@@ -20,7 +20,7 @@ function queryString(url){
 
 layui.config({
     base: '/lib/navbar/', //navbar组件js所在目录
-}).use('navbar', function () {
+}).use(['navbar','table'], function () {
     var navbar = layui.navbar();
     var table = layui.table;
     var $ = layui.$;
